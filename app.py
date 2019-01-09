@@ -20,15 +20,20 @@ class Level:
         self.char2_pos = char2_pos
         self.char1_symbol = char1_symbol
         self.char2_symbol = char2_symbol
-        # update of mac gyver's position
-        self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
-        self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
-        # update of mac gyver's previous position
-        self.position_log = position_log
-        if len(position_log) > 1:
-            self.MAP_ARRAY[position_log[-2][0]][position_log[-2][1]] = '0'
-        for item in self.MAP_ARRAY:
-            print(item)
+        if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "X":
+            print("you cannot go through walls")
+            # remove last mac gyver position in log array
+            mac_gyver_position_log.pop()
+        else:
+            # update of mac gyver's position
+            self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
+            self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
+            # update of mac gyver's previous position
+            self.position_log = position_log
+            if len(position_log) > 1:
+                self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
+            for item in self.MAP_ARRAY:
+                print(item)
 
 
 class Character:
