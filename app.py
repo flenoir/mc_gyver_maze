@@ -5,7 +5,7 @@ print("Ok, let's go for level " + level_choice)
 
 
 class Level:
-    #create level -> methode de classe ? 
+    #create level
     def create_maze(self, file):
         self.file = file
         with open(self.file,"r") as map:
@@ -17,25 +17,21 @@ class Level:
                 map_array.append(line_array)
             return map_array
 
-    def update_maze(self, level, char1_pos, char1_symbol, char2_pos, char2_symbol):
+    # show maze
+    def show_maze(self, level, char1_pos, char1_symbol, char2_pos, char2_symbol):
         self.level = level
         self.char1_pos = char1_pos
         self.char2_pos = char2_pos
         self.char1_symbol = char1_symbol
         self.char2_symbol = char2_symbol
-        self.level[char1_pos[0]][char1_pos[1]] = char1_symbol
-        self.level[char2_pos[0]][char2_pos[1]] = char2_symbol
-        # return self.level
+        if self.level[char1_pos[0]][char1_pos[1]] == "X":
+            print("you cannot go through walls")
+        else:
+            self.level[char1_pos[0]][char1_pos[1]] = char1_symbol
+            self.level[char2_pos[0]][char2_pos[1]] = char2_symbol
         for item in self.level:
             print(item)
 
-
-
-    # show level
-    def show_maze(self, level):
-        self.level = level
-        for item in self.level:
-            print(item)
 
 
 class Character:
@@ -47,9 +43,7 @@ class Character:
         self.movable = movable
         self.bag_content = bag_content
 
-    def move(self, position):
-        if position == "s":
-            print("down")
+    
 
 
 if int(level_choice) == 1:
@@ -58,17 +52,23 @@ if int(level_choice) == 1:
     # instanciation of characters
     mac_gyver = Character("Mac Gyver", (0,1),"M",True, 0)
     guardian = Character("The Guardian", (2,14),"G", False, 0)
-    # level creation
-    res = new_level.create_maze("maze_map.py")
-    # level display
-    new_level.update_maze(res,mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
-    # new_level.show_maze(res)
+
+    end_game = 0
+
+    while end_game != 1:
+
+        # level creation ( lunched each time not to keep older postion of mac gyver)
+        maze = new_level.create_maze("maze_map.py")
+
+        # level display
+        new_level.show_maze(maze,mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
+       
+        # move character
+        select_move = input("please select a new  line and letter (example 11): ")
     
-    select_move = input("please select a new tuple line,letter : ")
-   
-    mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
-    new_level.update_maze(res,mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
-    # new_level.show_maze(update) # => il faut resoumettre cette position sur le labyrinthe vide pour ne pas avoir l ancienne postion affichée
+        # modifiy character position
+        mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
+    
 else:
     print("This level is not available yet")
 
