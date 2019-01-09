@@ -29,8 +29,8 @@ class Level:
         else:
             self.level[char1_pos[0]][char1_pos[1]] = char1_symbol
             self.level[char2_pos[0]][char2_pos[1]] = char2_symbol
-        for item in self.level:
-            print(item)
+            for item in self.level:
+                print(item)
 
 
 
