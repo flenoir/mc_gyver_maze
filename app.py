@@ -26,6 +26,10 @@ class Level:
         self.char2_symbol = char2_symbol
         if self.level[char1_pos[0]][char1_pos[1]] == "X":
             print("you cannot go through walls")
+        elif self.level[char1_pos[0]][char1_pos[1]] == "I":
+            print("mac gyver picked an item and put it in his bag")
+            mac_gyver.bag_content =+1
+            print(mac_gyver.bag_content)
         else:
             self.level[char1_pos[0]][char1_pos[1]] = char1_symbol
             self.level[char2_pos[0]][char2_pos[1]] = char2_symbol
