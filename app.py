@@ -26,7 +26,6 @@ class Level:
         # update of mac gyver's previous position
         self.position_log = position_log
         if len(position_log) > 1:
-            print(position_log[-2])
             self.MAP_ARRAY[position_log[-2][0]][position_log[-2][1]] = '0'
         for item in self.MAP_ARRAY:
             print(item)
@@ -82,9 +81,7 @@ if int(level_choice) == 1:
         
         # change of mac_gyver position regarding new input
         mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
-
-        print(mac_gyver_position_log)
-        
+       
 
 
         
