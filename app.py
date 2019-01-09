@@ -1,45 +1,33 @@
-print("Hi, welcome in Mac Gyver's Maze")
-level_choice = input("Please select a level? 1 or 2 ? ")
-print("Ok, let's go for level " + level_choice)
-
-
 
 class Level:
-    #create level -> methode de classe ? 
-    def create_maze(self, file):
-        self.file = file
-        with open(self.file,"r") as map:
-            map_array = []
+
+    MAP_ARRAY = []
+
+    # create level
+    def __init__(self, file):
+        self.file = file        
+        with open(self.file,"r") as map:            
             for line in map:
                 line_array = []
                 for el in line.strip():                    
                     line_array.append(el)
-                map_array.append(line_array)
-            return map_array
-
-    def update_maze(self, level, char1_pos, char1_symbol, char2_pos, char2_symbol):
-        self.level = level
+                self.MAP_ARRAY.append(line_array)
+           
+    # show maze
+    def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol):        
         self.char1_pos = char1_pos
         self.char2_pos = char2_pos
         self.char1_symbol = char1_symbol
         self.char2_symbol = char2_symbol
-        self.level[char1_pos[0]][char1_pos[1]] = char1_symbol
-        self.level[char2_pos[0]][char2_pos[1]] = char2_symbol
-        # return self.level
-        for item in self.level:
-            print(item)
-
-
-
-    # show level
-    def show_maze(self, level):
-        self.level = level
-        for item in self.level:
+        self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
+        self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
+        for item in self.MAP_ARRAY:
             print(item)
 
 
 class Character:
 
+    # create character
     def __init__(self, name, position, symbol, movable, bag_content):
         self.name = name
         self.position = position
@@ -47,28 +35,42 @@ class Character:
         self.movable = movable
         self.bag_content = bag_content
 
+    # move character
     def move(self, position):
         if position == "s":
             print("down")
 
 
+#### GAME START ####
+
+print("Hi, welcome in Mac Gyver's Maze")
+level_choice = input("Please select a level? 1 or 2 ? ")
+print("Ok, let's go for level " + level_choice)
+
+
 if int(level_choice) == 1:
+
     #instanciation of level
-    new_level = Level()
+    new_level = Level("maze_map.py")
+
     # instanciation of characters
     mac_gyver = Character("Mac Gyver", (0,1),"M",True, 0)
     guardian = Character("The Guardian", (2,14),"G", False, 0)
-    # level creation
-    res = new_level.create_maze("maze_map.py")
-    # level display
-    new_level.update_maze(res,mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
-    # new_level.show_maze(res)
-    
-    select_move = input("please select a new tuple line,letter : ")
-   
-    mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
-    new_level.update_maze(res,mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
-    # new_level.show_maze(update) # => il faut resoumettre cette position sur le labyrinthe vide pour ne pas avoir l ancienne postion affichée
+
+    end_game = 0
+
+    #start game loop
+    while end_game != 1:
+        # level display
+        new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
+            
+        select_move = input("please select a new tuple line,letter : ")
+        
+        # change of mac_gyver position regarding new input
+        mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
+
+
+        
 else:
     print("This level is not available yet")
 
