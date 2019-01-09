@@ -12,6 +12,7 @@ class Level:
                 for el in line.strip():                    
                     line_array.append(el)
                 self.MAP_ARRAY.append(line_array)
+        
            
     # show maze
     def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol):        
@@ -52,7 +53,7 @@ if int(level_choice) == 1:
 
     #instanciation of level
     new_level = Level("maze_map.py")
-
+    
     # instanciation of characters
     mac_gyver = Character("Mac Gyver", (0,1),"M",True, 0)
     guardian = Character("The Guardian", (2,14),"G", False, 0)
@@ -64,10 +65,11 @@ if int(level_choice) == 1:
         # level display
         new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
             
-        select_move = input("please select a new tuple line,letter : ")
+        select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
         
         # change of mac_gyver position regarding new input
         mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
+        
 
 
         
