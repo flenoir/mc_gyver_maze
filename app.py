@@ -25,15 +25,28 @@ class Level:
             # remove last mac gyver position in log array
             mac_gyver_position_log.pop()
         else:
-            # update of mac gyver's position
-            self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
-            self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
-            # update of mac gyver's previous position
-            self.position_log = position_log
-            if len(position_log) > 1:
-                self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
-            for item in self.MAP_ARRAY:
-                print(item)
+            if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "I":
+                print("Mac gyver found an item and added it to his bag")
+                mac_gyver.bag_content +=1
+                 # update of mac gyver's position
+                self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
+                self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
+                # update of mac gyver's previous position
+                self.position_log = position_log
+                if len(position_log) > 1:
+                    self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
+                for item in self.MAP_ARRAY:
+                    print(item)
+            else:    
+                # update of mac gyver's position
+                self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
+                self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
+                # update of mac gyver's previous position
+                self.position_log = position_log
+                if len(position_log) > 1:
+                    self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
+                for item in self.MAP_ARRAY:
+                    print(item)
 
 
 class Character:
@@ -78,6 +91,7 @@ if int(level_choice) == 1:
         # log mac gyver position
         mac_gyver_position_log.append(mac_gyver.position)
         print(mac_gyver_position_log)
+        print(mac_gyver.bag_content)
 
         # level display
         new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol, mac_gyver_position_log)
