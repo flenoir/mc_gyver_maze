@@ -1,3 +1,23 @@
+# Pseudo code
+
+# ask player to select a level
+# create maze based on level
+# display maze
+
+#create a loop until game is finished
+    # ask player to move mcgyver character (do not allow to move outside maze or on a wall)
+    # reload maze with new mcgyver position
+
+    #create condition inside loop
+    # if mac gyver move on an item , he fills his bag
+    # if mac Gyver faces guardian without all items he looses (game is finished)
+    # else he wins (game is finished)
+
+
+# objects
+
+# Level (attributes file | method create, method display) -> hint : diplay method should be called after each move
+# character (attributes name, position, symbol, movable, bag | method move ? )
 
 class Level:
 
@@ -24,6 +44,16 @@ class Level:
             print("you cannot go through walls")
             # remove last mac gyver position in log array
             mac_gyver_position_log.pop()
+            return 0
+           
+        elif self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "G" and mac_gyver.bag_content == 3:
+            print(" Mac Gyver won !")
+            return 1
+            
+        elif self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "G" and mac_gyver.bag_content < 3:
+            print(" Mac Gyver looses !")
+            return 1
+             
         else:
             if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "I":
                 print("Mac gyver found an item and added it to his bag")
@@ -37,6 +67,7 @@ class Level:
                     self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
                 for item in self.MAP_ARRAY:
                     print(item)
+                return 0
             else:    
                 # update of mac gyver's position
                 self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
@@ -47,6 +78,8 @@ class Level:
                     self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
                 for item in self.MAP_ARRAY:
                     print(item)
+                return 0
+                
 
 
 class Character:
@@ -87,19 +120,22 @@ if int(level_choice) == 1:
     end_game = 0
 
     #start game loop
-    while end_game != 1:
+    while end_game == 0:
         # log mac gyver position
         mac_gyver_position_log.append(mac_gyver.position)
-        print(mac_gyver_position_log)
-        print(mac_gyver.bag_content)
 
         # level display
-        new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol, mac_gyver_position_log)
-          
-        select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
+        result = new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol, mac_gyver_position_log)
         
-        # change of mac_gyver position regarding new input
-        mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
+        end_game = result
+        
+        if end_game == 0:   
+            select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
+            
+            # change of mac_gyver position regarding new input
+            mac_gyver.position = (int(select_move[0:1]),int(select_move[1:3]))
+        else:
+            print("Game Over")
        
 
 
@@ -107,25 +143,3 @@ if int(level_choice) == 1:
 else:
     print("This level is not available yet")
 
-
-
-# Pseudo code
-
-# ask player to select a level
-# create maze based on level
-# display maze
-
-#create a loop until game is finished
-    # ask player to move mcgyver character (do not allow to move outside maze or on a wall)
-    # reload maze with new mcgyver position
-
-    #create condition inside loop
-    # if mac gyver move on an item , he fills his bag
-    # if mac Gyver faces guardian without all items he looses (game is finished)
-    # else he wins (game is finished)
-
-
-# objects
-
-# maze (attribute is level, method create, method display) -> hint : diplay method should be called after each move
-# character (attribute bag, method move)
