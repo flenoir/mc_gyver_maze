@@ -3,55 +3,23 @@ class Level:
 
     MAP_ARRAY = []
 
-<<<<<<< HEAD
-class Level:
-    #create level
-    def create_maze(self, file):
-        self.file = file
-        with open(self.file,"r") as map:
-            map_array = []
-=======
     # create level
     def __init__(self, file):
         self.file = file        
         with open(self.file,"r") as map:            
->>>>>>> level_init
             for line in map:
                 line_array = []
                 for el in line.strip():                    
                     line_array.append(el)
-<<<<<<< HEAD
-                map_array.append(line_array)
-            return map_array
-
-    # show maze
-    def show_maze(self, level, char1_pos, char1_symbol, char2_pos, char2_symbol):
-        self.level = level
-=======
                 self.MAP_ARRAY.append(line_array)
         
            
     # show maze
     def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol, position_log):        
->>>>>>> level_init
         self.char1_pos = char1_pos
         self.char2_pos = char2_pos
         self.char1_symbol = char1_symbol
         self.char2_symbol = char2_symbol
-<<<<<<< HEAD
-        if self.level[char1_pos[0]][char1_pos[1]] == "X":
-            print("you cannot go through walls")
-        elif self.level[char1_pos[0]][char1_pos[1]] == "I":
-            print("mac gyver picked an item and put it in his bag")
-            mac_gyver.bag_content =+1
-            print(mac_gyver.bag_content)
-        else:
-            self.level[char1_pos[0]][char1_pos[1]] = char1_symbol
-            self.level[char2_pos[0]][char2_pos[1]] = char2_symbol
-            for item in self.level:
-                print(item)
-
-=======
         if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "X":
             print("you cannot go through walls")
             # remove last mac gyver position in log array
@@ -79,7 +47,6 @@ class Level:
                     self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
                 for item in self.MAP_ARRAY:
                     print(item)
->>>>>>> level_init
 
 
 class Character:
@@ -93,14 +60,10 @@ class Character:
         self.bag_content = bag_content
         
 
-<<<<<<< HEAD
-    
-=======
     # move character
     def move(self, position):
         if position == "s":
             print("down")
->>>>>>> level_init
 
 
 #### GAME START ####
@@ -123,22 +86,6 @@ if int(level_choice) == 1:
 
     end_game = 0
 
-<<<<<<< HEAD
-    while end_game != 1:
-
-        # level creation ( lunched each time not to keep older postion of mac gyver)
-        maze = new_level.create_maze("maze_map.py")
-
-        # level display
-        new_level.show_maze(maze,mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
-       
-        # move character
-        select_move = input("please select a new  line and letter (example 11): ")
-    
-        # modifiy character position
-        mac_gyver.position = (int(select_move[0:1]),int(select_move[1:2]))
-    
-=======
     #start game loop
     while end_game != 1:
         # log mac gyver position
@@ -157,7 +104,6 @@ if int(level_choice) == 1:
 
 
         
->>>>>>> level_init
 else:
     print("This level is not available yet")
 
