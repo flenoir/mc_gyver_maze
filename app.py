@@ -1,24 +1,3 @@
-# Pseudo code
-
-# ask player to select a level
-# create maze based on level
-# display maze
-
-#create a loop until game is finished
-    # ask player to move mcgyver character (do not allow to move outside maze or on a wall)
-    # reload maze with new mcgyver position
-
-    #create condition inside loop
-    # if mac gyver move on an item , he fills his bag
-    # if mac Gyver faces guardian without all items he looses (game is finished)
-    # else he wins (game is finished)
-
-
-# objects
-
-# Level (attributes file | method create, method display) -> hint : diplay method should be called after each move
-# character (attributes name, position, symbol, movable, bag | method move ? )
-
 class Level:
 
     MAP_ARRAY = []
@@ -26,23 +5,22 @@ class Level:
     # create level
     def __init__(self, file):
         self.file = file        
-        with open(self.file,"r") as map:            
+        with open(self.file, "r") as map:
             for line in map:
                 line_array = []
                 for el in line.strip():                    
                     line_array.append(el)
                 self.MAP_ARRAY.append(line_array)
-        
-           
+
     # show maze
     def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol, position_log):        
-        self.char1_pos = char1_pos
-        self.char2_pos = char2_pos
-        self.char1_symbol = char1_symbol
-        self.char2_symbol = char2_symbol
+        # self.char1_pos = char1_pos
+        # self.char2_pos = char2_pos
+        # self.char1_symbol = char1_symbol
+        # self.char2_symbol = char2_symbol
         if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "X":
             print("you cannot go through walls")
-            # remove last mac gyver position in log array
+            # remove last Mac Gyver position in log array
             mac_gyver_position_log.pop()
             return 0
            
@@ -58,7 +36,7 @@ class Level:
             if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "I":
                 print("Mac gyver found an item and added it to his bag")
                 mac_gyver.bag_content +=1
-                 # update of mac gyver's position
+                # update of mac gyver's position
                 self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
                 self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
                 # update of mac gyver's previous position
@@ -79,7 +57,6 @@ class Level:
                 for item in self.MAP_ARRAY:
                     print(item)
                 return 0
-                
 
 
 class Character:
@@ -91,7 +68,6 @@ class Character:
         self.symbol = symbol
         self.movable = movable
         self.bag_content = bag_content
-        
 
     # move character
     def move(self, position):
@@ -110,7 +86,7 @@ if int(level_choice) == 1:
 
     mac_gyver_position_log  = []
 
-    #instanciation of level
+    # instanciation of level
     new_level = Level("maze_map.py")
     
     # instanciation of characters
@@ -119,7 +95,7 @@ if int(level_choice) == 1:
 
     end_game = 0
 
-    #start game loop
+    # start game loop
     while end_game == 0:
         # log mac gyver position
         mac_gyver_position_log.append(mac_gyver.position)
@@ -130,7 +106,7 @@ if int(level_choice) == 1:
         end_game = result
         
         if end_game == 0:   
-            select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
+            select_move = input("please select new position (one number for line, one for position) for example 12 : ")
             
             # change of mac_gyver position regarding new input
             mac_gyver.position = (int(select_move[0:1]),int(select_move[1:3]))
@@ -138,8 +114,6 @@ if int(level_choice) == 1:
             print("Game Over")
        
 
-
-        
 else:
     print("This level is not available yet")
 
