@@ -1,24 +1,3 @@
-# Pseudo code
-
-# ask player to select a level
-# create maze based on level
-# display maze
-
-#create a loop until game is finished
-    # ask player to move mcgyver character (do not allow to move outside maze or on a wall)
-    # reload maze with new mcgyver position
-
-    #create condition inside loop
-    # if mac gyver move on an item , he fills his bag
-    # if mac Gyver faces guardian without all items he looses (game is finished)
-    # else he wins (game is finished)
-
-
-# objects
-
-# Level (attributes file | method create, method display) -> hint : diplay method should be called after each move
-# character (attributes name, position, symbol, movable, bag | method move ? )
-
 class Level:
 
     MAP_ARRAY = []
@@ -94,9 +73,11 @@ class Character:
         
 
     # move character
-    def move(self, position):
-        if position == "s":
-            print("down")
+    def move(self, new_position):
+        print("character position is ",self.position)
+        self.position = new_position
+        print("character new position is ",self.position)
+
 
 
 #### GAME START ####
@@ -117,6 +98,8 @@ if int(level_choice) == 1:
     mac_gyver = Character("Mac Gyver", (0,1),"M",True, 0)
     guardian = Character("The Guardian", (2,14),"G", False, 0)
 
+
+
     end_game = 0
 
     #start game loop
@@ -125,17 +108,16 @@ if int(level_choice) == 1:
         mac_gyver_position_log.append(mac_gyver.position)
 
         # level display
-        result = new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol, mac_gyver_position_log)
+        new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol, mac_gyver_position_log)
         
-        end_game = result
+        # print(mac_gyver.move())
+
+        select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
         
-        if end_game == 0:   
-            select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
-            
-            # change of mac_gyver position regarding new input
-            mac_gyver.position = (int(select_move[0:1]),int(select_move[1:3]))
-        else:
-            print("Game Over")
+        
+        # change of mac_gyver position regarding new input
+        # mac_gyver.position = (int(select_move[0:1]),int(select_move[1:3]))
+        print(mac_gyver.move((int(select_move[0:1]),int(select_move[1:3]))))
        
 
 
