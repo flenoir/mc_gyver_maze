@@ -13,14 +13,10 @@ class Level:
 
     # show maze
     def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol):        
-
         # update of mac gyver's position
         self.array[char1_pos[0]][char1_pos[1]] = char1_symbol
         self.array[char2_pos[0]][char2_pos[1]] = char2_symbol
-        # update of mac gyver's previous position
-        # self.position_log = position_log
-        # if len(position_log) > 1:
-        #     self.array[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
+        # parse array and print maze level
         for item in self.array:
             print(item)
         return 0
@@ -67,8 +63,6 @@ print("Ok, let's go for level " + level_choice)
 
 if int(level_choice) == 1:
 
-    mac_gyver_position_log  = []
-
     #instanciation of level
     new_level = Level("maze_map.py")
     
@@ -82,28 +76,23 @@ if int(level_choice) == 1:
 
     #start game loop
     while end_game == 0:
-        # log mac gyver position
-        # mac_gyver_position_log.append(mac_gyver.position)
 
         # level display
         new_level.show_maze(mac_gyver.position, mac_gyver.symbol,guardian.position,guardian.symbol)
         
-        # print(mac_gyver.move())
-
         select_move = input("please select a new position (one number for line and one for position) for example 12 : ")
         
-        
-        # change of mac_gyver position regarding new input
-        movment = mac_gyver.move((int(select_move[0:1]), int(select_move[1:3])), new_level.array)
-        print("les movments sont "+ str(movment[0]) + " et " + str(movment[1]))
-        mac_gyver.position = movment[0]
-        x = movment[1][0]
-        y = movment[1][1]
-        print("les valeur de x et y sont : " + str(x) + str(y) )        
-        new_level.array[movment[1][0]][movment[1][1]] = "0"
-        
+        tuplized_move = tuple(int(x) for x in select_move.split(","))
+        print("tuple is ", tuplized_move)
 
-        print("mouvement réalisé :", mac_gyver.position)
+        # change of mac_gyver position regarding new input
+        movment = mac_gyver.move(tuplized_move, new_level.array)
+        print("les movments  actual et previous sont "+ str(movment[0]) + " et " + str(movment[1]))
+        # update new current position
+        mac_gyver.position = movment[0]
+        # update previous position to replace trace by "0"        
+        new_level.array[movment[1][0]][movment[1][1]] = "0"
+    
 
 
         
