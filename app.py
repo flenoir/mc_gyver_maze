@@ -45,9 +45,11 @@ class Character:
         if maze[new_position[0]][new_position[1]] != "X":
             self.position = new_position
             print("character new position is ", self.position)
+            print(self.position)
             return self.position
         else:
             print("You cannot move into walls")
+            print(self.position)
             return self.position
            # why i don't get display in print ?
 
