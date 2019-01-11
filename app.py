@@ -1,32 +1,27 @@
 class Level:
 
-    MAP_ARRAY = []
-
     # create level
     def __init__(self, file):
-        self.file = file        
+        self.file = file
+        self.array = []
         with open(self.file,"r") as map:            
             for line in map:
                 line_array = []
                 for el in line.strip():                    
                     line_array.append(el)
-                self.MAP_ARRAY.append(line_array)
+                self.array.append(line_array)
 
     # show maze
     def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol, position_log):        
-        # self.char1_pos = char1_pos
-        # self.char2_pos = char2_pos
-        # self.char1_symbol = char1_symbol
-        # self.char2_symbol = char2_symbol
 
         # update of mac gyver's position
-        self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] = char1_symbol
-        self.MAP_ARRAY[char2_pos[0]][char2_pos[1]] = char2_symbol
+        self.array[char1_pos[0]][char1_pos[1]] = char1_symbol
+        self.array[char2_pos[0]][char2_pos[1]] = char2_symbol
         # update of mac gyver's previous position
         self.position_log = position_log
         if len(position_log) > 1:
-            self.MAP_ARRAY[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
-        for item in self.MAP_ARRAY:
+            self.array[self.position_log[-2][0]][self.position_log[-2][1]] = '0'
+        for item in self.array:
             print(item)
         return 0
 
@@ -48,6 +43,7 @@ class Character:
         print("character position is ",self.position)
         self.position = new_position
         print("character new position is ",self.position)
+
 
 
 
