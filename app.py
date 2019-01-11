@@ -45,11 +45,10 @@ class Character:
         if maze[new_position[0]][new_position[1]] != "X":
             self.position = new_position
             print("character new position is ", self.position)
-            print(self.position)
             return self.position
         else:
             print("You cannot move into walls")
-            print(self.position)
+            print("after walls ", self.position)
             return self.position
            # why i don't get display in print ?
 
@@ -92,9 +91,9 @@ if int(level_choice) == 1:
         
         
         # change of mac_gyver position regarding new input
-        # mac_gyver.position = (int(select_move[0:1]),int(select_move[1:3]))
-        print(mac_gyver.move((int(select_move[0:1]), int(select_move[1:3])), new_level.array))
-       
+        mac_gyver.position = mac_gyver.move((int(select_move[0:1]), int(select_move[1:3])), new_level.array)
+
+        print("mouvement réalisé :", mac_gyver.position)
 
 
         
