@@ -11,14 +11,13 @@ class Level:
                 for el in line.strip():                    
                     line_array.append(el)
                 self.MAP_ARRAY.append(line_array)
-        
-           
+
     # show maze
     def show_maze(self, char1_pos, char1_symbol, char2_pos, char2_symbol, position_log):        
-        self.char1_pos = char1_pos
-        self.char2_pos = char2_pos
-        self.char1_symbol = char1_symbol
-        self.char2_symbol = char2_symbol
+        # self.char1_pos = char1_pos
+        # self.char2_pos = char2_pos
+        # self.char1_symbol = char1_symbol
+        # self.char2_symbol = char2_symbol
         if self.MAP_ARRAY[char1_pos[0]][char1_pos[1]] == "X":
             print("you cannot go through walls")
             # remove last mac gyver position in log array
@@ -95,8 +94,8 @@ if int(level_choice) == 1:
     new_level = Level("maze_map.py")
     
     # instanciation of characters
-    mac_gyver = Character("Mac Gyver", (0,1),"M",True, 0)
-    guardian = Character("The Guardian", (2,14),"G", False, 0)
+    mac_gyver = Character("Mac Gyver", (0, 1), "M", True, 0)
+    guardian = Character("The Guardian", (2, 14), "G", False, 0)
 
 
 
@@ -117,7 +116,7 @@ if int(level_choice) == 1:
         
         # change of mac_gyver position regarding new input
         # mac_gyver.position = (int(select_move[0:1]),int(select_move[1:3]))
-        print(mac_gyver.move((int(select_move[0:1]),int(select_move[1:3]))))
+        print(mac_gyver.move((int(select_move[0:1]), int(select_move[1:3]))))
        
 
 
