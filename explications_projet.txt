@@ -1,0 +1,44 @@
+explication projet "mac_gyver_maze"
+
+il faut créer le labyrinthe sous forme de fichier. Je créer unn fichier excel qui me permet de visualiser le labyrinthe que je veux créer. 
+
+Chaque mur sera symbolisé par le lettre x et chaque espace vide sera symbolisé par la lettre o
+
+Le fichier du plan est un fichier python et le plan en soit est une liste 225 signes.
+
+Le plateau de jeu est défini par 15 cases horizontales commées de A à O et 15 case verticales numérotées e 0 à 15 ce qui permet d'identifier chaque case avec un couple de type C8 par exemple.
+
+Il faut installer pygame mais il faut que ce soit une version Python 3 mais en 32 bits. Je dois donc désinstaller Python 3 en version 64 bits
+
+
+
+------------------
+
+# Pseudo code
+
+# ask player to select a level
+# create maze based on level
+# display maze
+
+#create a loop until game is finished
+    # ask player to move mcgyver character (do not allow to move outside maze or on a wall)
+    # reload maze with new mcgyver position
+
+    #create condition inside loop
+    # if mac gyver move on an item , he fills his bag
+    # if mac Gyver faces guardian without all items he looses (game is finished)
+    # else he wins (game is finished)
+
+
+# objects
+
+# Level (attributes file | method create, method display) -> hint : diplay method should be called after each move
+# character (attributes name, position, symbol, movable, bag | method move ? )
+
+
+-------------------
+
+Après discussion aveec mon mentor, il est preferable de créer le jeu en mdoe console pour avoir la logique et ensuite interger Pygame.
+
+Je réalise donc une structure autour du pseudo code afin d'utilsier la POO
+
