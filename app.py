@@ -43,11 +43,18 @@ class Character:
             self.position_log.append(self.position)
             print("position log array", self.position_log)
             return self.position, self.position_log[-2]
+        elif maze[new_position[0]][new_position[1]] == "I":
+            self.bag_content += 1
+            self.position = new_position
+            print("character new position is ", self.position)
+            self.position_log.append(self.position)
+            print("position log array", self.position_log)
+            return self.position, self.position_log[-2]
         else:
             print("You cannot move into walls")
             print("after walls ", self.position)
             return self.position
-            # why i don't get display in print ?
+            
 
 
 #### GAME START ####
