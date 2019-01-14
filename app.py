@@ -37,7 +37,11 @@ class Character:
     def move(self, new_position, maze):
         print("character position is ", self.position)
         # print(maze)
-        if maze[new_position[0]][new_position[1]] != "X":
+        if maze[new_position[0]][new_position[1]] == "X":
+            print("You cannot move into walls")
+            print("after walls ", self.position)
+            return self.position
+        elif maze[new_position[0]][new_position[1]] == "0":
             self.position = new_position
             print("character new position is ", self.position)
             self.position_log.append(self.position)
@@ -46,14 +50,23 @@ class Character:
         elif maze[new_position[0]][new_position[1]] == "I":
             self.bag_content += 1
             self.position = new_position
-            print("character new position is ", self.position)
+            print("character new position is after picking item ", self.position)
             self.position_log.append(self.position)
             print("position log array", self.position_log)
             return self.position, self.position_log[-2]
+        elif maze[new_position[0]][new_position[1]] == "G":
+            self.position = new_position
+            self.position_log.append(self.position)
+            print("Mac Gyver's bag contains {} items".format(self.bag_content))
+            if self.bag_content != 3:
+                print("Mac Gyver looses")
+                return self.position, self.position_log[-2]
+            else:
+                print("mac Gyvers won")
+                return self.position, self.position_log[-2]
         else:
-            print("You cannot move into walls")
-            print("after walls ", self.position)
-            return self.position
+            print("other movment")
+
             
 
 
