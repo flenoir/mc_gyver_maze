@@ -1,15 +1,28 @@
+from random import randint
+
 class Level:
 
     # create level
     def __init__(self, file):
         self.file = file
         self.array = []
+        self.items = 3
         with open(self.file, "r") as map:            
             for line in map:
                 line_array = []
                 for el in line.strip():                    
                     line_array.append(el)
                 self.array.append(line_array)
+
+        #  display randomly items
+        while self.items != 0:
+            val1, val2 = randint(0, 14), randint(0, 14)
+
+            if self.array[val1][val2] == "0":
+                self.array[val1][val2] = "I"
+                self.items -= 1
+            # else:
+            #     val1, val2 = randint(0, 14), randint(0, 14)
 
     # show maze
     def show_maze(self, char1, char2):        
