@@ -21,7 +21,11 @@ class Level:
             print(item)
         return 0
 
-
+    # generate random number for line and one for character
+    # sort one position out of these numbers
+    # check if the reponse is equal to "0" and replace it with "I"
+    # repace with "I" 2 more times
+    #
 class Character:
 
     # create character
