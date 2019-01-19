@@ -1,5 +1,6 @@
 from random import randint
 
+
 class Level:
 
     # create level
@@ -34,44 +35,41 @@ class Level:
             print(item)
         return 0
 
-    # generate random number for line and one for character
-    # sort one position out of these numbers
-    # check if the reponse is equal to "0" and replace it with "I"
-    # repace with "I" 2 more times
-    #
+
 class Character:
 
     # create character
-    def __init__(self, name, position, symbol, movable, bag_content):
+    def __init__(self, name, position, symbol, maze_level, movable, bag_content):
         self.name = name
         self.position = position
         self.symbol = symbol
+        self.maze_level = maze_level
         self.movable = movable
         self.bag_content = bag_content
         self.position_log = [position]
-        
+       
     # move character
-    def move(self, new_position, maze):
+    def move(self, new_position):
         print("character position is ", self.position)
         # print(maze)
-        if maze[new_position[0]][new_position[1]] == "X":
+        if self.maze_level.array[new_position[0]][new_position[1]] == "X":
             print("You cannot move into walls")
             print("after walls ", self.position)
             return self.position
-        elif maze[new_position[0]][new_position[1]] == "0":
+        elif self.maze_level.array[new_position[0]][new_position[1]] == "0":
             self.position = new_position
             print("character new position is ", self.position)
             self.position_log.append(self.position)
             print("position log array", self.position_log)
             return self.position, self.position_log[-2]
-        elif maze[new_position[0]][new_position[1]] == "I":
+        elif self.maze_level.array[new_position[0]][new_position[1]] == "I":
             self.bag_content += 1
             self.position = new_position
             print("character new position is after picking item ", self.position)
             self.position_log.append(self.position)
             print("position log array", self.position_log)
             return self.position, self.position_log[-2]
-        elif maze[new_position[0]][new_position[1]] == "G":
+        elif self.maze_level.array[new_position[0]][new_position[1]] == "G":
             self.position = new_position
             self.position_log.append(self.position)
             print("Mac Gyver's bag contains {} items".format(self.bag_content))
@@ -84,7 +82,6 @@ class Character:
         else:
             print("other movment")
 
-            
 
 
 #### GAME START ####
@@ -100,8 +97,8 @@ if int(level_choice) == 1:
     new_level = Level("maze_map.py")
 
     # instanciation of characters
-    mac_gyver = Character("Mac Gyver", (0, 1), "M", True, 0)
-    guardian = Character("The Guardian", (2, 14), "G", False, 0)
+    mac_gyver = Character("Mac Gyver", (0, 1), "M", new_level, True, 0)
+    guardian = Character("The Guardian", (2, 14), "G", new_level, False, 0)
 
     end_game = 0
 
@@ -117,7 +114,7 @@ if int(level_choice) == 1:
         print("tuple is ", tuplized_move)
 
         # change of mac_gyver position regarding new input
-        movment = mac_gyver.move(tuplized_move, new_level.array)
+        movment = mac_gyver.move(tuplized_move)
         print("les movments  actual et previous sont " + str(movment[0]) + " et " + str(movment[1]))
         # update new current position
         mac_gyver.position = movment[0]
