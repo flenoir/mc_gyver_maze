@@ -1,4 +1,6 @@
 from random import randint
+import pygame
+from pygame.locals import *
 
 
 class Level:
@@ -81,3 +83,24 @@ class Character:
                 return self.position, self.position_log[-2]
         else:
             print("other movment")
+
+
+class Game:
+    def __init__(self):
+        self.width = 675
+        self.height = 675
+        self.background = "images/fond1.jpg"
+        self.player1 = "images/MacGyver.png"
+
+        pygame.init()
+
+        area = pygame.display.set_mode((self.width, self.height))
+
+        background = pygame.image.load(self.background).convert()
+
+        area.blit(background, (0, 0))
+
+        perso1 = pygame.image.load(self.player1).convert()
+        area.blit(perso1, (0, 0))
+
+        pygame.display.flip()
