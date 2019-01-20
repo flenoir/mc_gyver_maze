@@ -104,7 +104,7 @@ class Game:
                 self.array.append(line_array)
     
      # show maze
-    def show_maze(self):
+    def show_maze(self, char1, char2):
 
         pygame.init()
         area = pygame.display.set_mode((self.width, self.height))
@@ -123,12 +123,22 @@ class Game:
                                 
         # return 0
 
+        # # fisrt display of characters position
+        macgyver = pygame.image.load(char1.symbol).convert()
+        area.blit(macgyver, (int(char1.position[1])*45, int(char1.position[0])*45))
+        guardian = pygame.image.load(char2.symbol).convert()
+        area.blit(guardian, (int(char2.position[1])*45, int(char2.position[0])*45))
+    
         pygame.display.flip()
-
-        # # update of mac gyver's position
-        # self.array[char1.position[0]][char1.position[1]] = char1.symbol
-        # self.array[char2.position[0]][char2.position[1]] = char2.symbol
-        # # parse array and print maze level
       
 
-
+class Player:
+    # create character
+    def __init__(self, name, position, symbol, maze_level, movable, bag_content):
+        self.name = name
+        self.position = position
+        self.symbol = symbol
+        self.maze_level = maze_level
+        self.movable = movable
+        self.bag_content = bag_content
+        self.position_log = [position]

@@ -1,11 +1,14 @@
-from classes import Level, Character, Game
+from classes import Level, Character, Game, Player
 import constants
 import pygame
 from pygame.locals import *
 
 
 jeu = Game(constants.maze1, constants.wall )
-jeu.show_maze()
+
+mc = Player("Mac Gyver", (0, 1), "images/MacGyver.png", jeu, True, 0)
+g = Player("The Guardian", (2, 14), "images/Gardien.png", jeu, False, 0)
+jeu.show_maze(mc, g)
 
 continuer = 1
 
