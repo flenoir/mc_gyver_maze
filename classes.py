@@ -148,3 +148,14 @@ class Player:
         # self.icon = pygame.image.load(symbol).convert()
         # self.pos = self.icon.get_rect(topleft=(position[0]*45, position[1]*45))
         # self.area.blit(self.icon, self.pos)
+    
+    def move(self, event):
+        if event.type == KEYDOWN:
+            if event.key == K_DOWN:
+                print("fleche bas")
+                print(self.position)
+                self.position = self.position[0], self.position[1]+1
+                print(self.position)
+                self.position_log.append(self.position)
+                print(self.position_log)
+                return self.position

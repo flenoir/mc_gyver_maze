@@ -4,7 +4,7 @@ import pygame
 from pygame.locals import *
 
 
-jeu = Game(constants.maze1, constants.wall )
+jeu = Game(constants.maze1, constants.wall)
 
 mc = Player("Mac Gyver", (0, 1), "images/MacGyver.png", jeu, True, 0)
 g = Player("The Guardian", (2, 14), "images/Gardien.png", jeu, False, 0)
@@ -16,9 +16,9 @@ while continuer:
     for event in pygame.event.get():
         if event.type == QUIT:
             continuer = 0
-        if event.type == KEYDOWN:
-            if event.key == K_DOWN:
-                print("fleche bas")
+        else:
+            mc.move(event)
+            
     
 
 # if __name__ == "__main__":
