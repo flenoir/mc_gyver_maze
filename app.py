@@ -4,7 +4,8 @@ import pygame
 from pygame.locals import *
 
 
-jeu = Game(constants.maze1, constants.wall)
+jeu = Game(constants.maze1, constants.wall )
+jeu.show_maze()
 
 continuer = 1
 

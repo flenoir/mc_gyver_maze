@@ -91,21 +91,44 @@ class Game:
         self.width = maze['x_size']
         self.height = maze['y_size']
         self.background = maze['background']
-        self.player1 = "images/MacGyver.png"
         self.wall = wall
+        self.maze_file = maze['maze_file']
+        self.array = []
+
+        with open(self.maze_file, "r") as maze_map:
+            for i, line in enumerate(maze_map):
+                line_array = []
+                for index, el in enumerate(line.strip()):
+                    line_array.append((el, i, index))
+                    # print("index {} et el {} et i {}".format(index, el, i))
+                self.array.append(line_array)
+    
+     # show maze
+    def show_maze(self):
 
         pygame.init()
-
         area = pygame.display.set_mode((self.width, self.height))
 
         background = pygame.image.load(self.background).convert()
-
         area.blit(background, (0, 0))
 
-        perso1 = pygame.image.load(self.player1).convert()
-        area.blit(perso1, (0, 0))
-
         wall_block = pygame.image.load(self.wall).convert()
-        area.blit(wall_block, (0, 45))
+        
+        for item in self.array:
+            # print(item[0][0])
+            for i, w in enumerate(item):
+                print(i)
+                if item[i][0] == "X":
+                    area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
+                                
+        # return 0
 
         pygame.display.flip()
+
+        # # update of mac gyver's position
+        # self.array[char1.position[0]][char1.position[1]] = char1.symbol
+        # self.array[char2.position[0]][char2.position[1]] = char2.symbol
+        # # parse array and print maze level
+      
+
+
