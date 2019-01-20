@@ -8,7 +8,7 @@ jeu = Game(constants.maze1, constants.wall)
 
 mc = Player("Mac Gyver", (0, 1), "images/MacGyver.png", jeu, True, 0)
 g = Player("The Guardian", (2, 14), "images/Gardien.png", jeu, False, 0)
-jeu.show_maze(mc, g)
+# jeu.show_maze(mc, g)
 
 continuer = 1
 
@@ -17,7 +17,9 @@ while continuer:
         if event.type == QUIT:
             continuer = 0
         else:
+            jeu.show_maze(mc.position, mc.symbol, mc.position_log)
             mc.move(event)
+        
             
     
 

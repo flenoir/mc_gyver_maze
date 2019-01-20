@@ -94,24 +94,25 @@ class Game:
         self.wall = wall
         self.maze_file = maze['maze_file']
         self.array = []
-        # self.area = pygame.display.set_mode((self.width, self.height))
+        self.area = pygame.display.set_mode((self.width, self.height))
 
         with open(self.maze_file, "r") as maze_map:
             for i, line in enumerate(maze_map):
                 line_array = []
                 for index, el in enumerate(line.strip()):
-                    line_array.append((el, i, index))
-                    # print("index {} et el {} et i {}".format(index, el, i))
+                    line_array.append((el, i, index))                    
                 self.array.append(line_array)
+
+
     
-     # show maze
-    def show_maze(self, char1, char2):
+    # show maze
+    def show_maze(self, movment, symbol, log):
 
         pygame.init()
-        area = pygame.display.set_mode((self.width, self.height))
+        self.area = pygame.display.set_mode((self.width, self.height))
 
         background = pygame.image.load(self.background).convert()
-        area.blit(background, (0, 0))
+        self.area.blit(background, (0, 0))
 
         wall_block = pygame.image.load(self.wall).convert()
         
@@ -120,17 +121,20 @@ class Game:
             for i, w in enumerate(item):
                 print(i)
                 if item[i][0] == "X":
-                    area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
+                    self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
                                 
         # return 0
 
         # # first display of characters position
-        macgyver = pygame.image.load(char1.symbol).convert()
-        macgyver_position = macgyver.get_rect(topleft=(int(char1.position[1])*45, int(char1.position[0])*45))
-        area.blit(macgyver, macgyver_position)
-        guardian = pygame.image.load(char2.symbol).convert()
-        guardian_position = guardian.get_rect(topleft=(int(char2.position[1])*45, int(char2.position[0])*45))
-        area.blit(guardian, guardian_position)
+        macgyver = pygame.image.load(symbol).convert()
+        if len(log) > 1:
+            macgyver_position = macgyver.get_rect(topleft=(log[1][-2], log[0][-2])) #=> previous position
+        else: 
+            macgyver_position = macgyver.get_rect(topleft=(0, 0))
+   
+        macgyver_position = macgyver_position.move(movment[1]*45, movment[0]*45)
+        self.area.blit(macgyver, macgyver_position)
+
     
         pygame.display.flip()
       
@@ -145,9 +149,9 @@ class Player:
         self.movable = movable
         self.bag_content = bag_content
         self.position_log = [position]
-        # self.icon = pygame.image.load(symbol).convert()
-        # self.pos = self.icon.get_rect(topleft=(position[0]*45, position[1]*45))
-        # self.area.blit(self.icon, self.pos)
+        self.icon = pygame.image.load(symbol).convert()
+        self.pos = self.icon.get_rect(topleft=(int(position[1])*45, int(position[0])*45))
+        self.maze_level.area.blit(self.icon, self.pos)
     
     def move(self, event):
         if event.type == KEYDOWN:
@@ -158,4 +162,9 @@ class Player:
                 print(self.position)
                 self.position_log.append(self.position)
                 print(self.position_log)
-                return self.position
+                # self.pos.move(self.position[0]*45, self.position[0]*45)
+                # self.maze_level.area.blit(self.icon, self.pos)
+                
+                # print("maze_level", self.maze_level.array[self.position[0]][self.position[1]])
+                # return self.position
+                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
