@@ -17,8 +17,8 @@ while continuer:
         if event.type == QUIT:
             continuer = 0
         if event.type == KEYDOWN:
-            if event.key == K_SPACE:
-                print("space")
+            if event.key == K_DOWN:
+                print("fleche bas")
     
 
 # if __name__ == "__main__":

@@ -94,6 +94,7 @@ class Game:
         self.wall = wall
         self.maze_file = maze['maze_file']
         self.array = []
+        # self.area = pygame.display.set_mode((self.width, self.height))
 
         with open(self.maze_file, "r") as maze_map:
             for i, line in enumerate(maze_map):
@@ -123,11 +124,13 @@ class Game:
                                 
         # return 0
 
-        # # fisrt display of characters position
+        # # first display of characters position
         macgyver = pygame.image.load(char1.symbol).convert()
-        area.blit(macgyver, (int(char1.position[1])*45, int(char1.position[0])*45))
+        macgyver_position = macgyver.get_rect(topleft=(int(char1.position[1])*45, int(char1.position[0])*45))
+        area.blit(macgyver, macgyver_position)
         guardian = pygame.image.load(char2.symbol).convert()
-        area.blit(guardian, (int(char2.position[1])*45, int(char2.position[0])*45))
+        guardian_position = guardian.get_rect(topleft=(int(char2.position[1])*45, int(char2.position[0])*45))
+        area.blit(guardian, guardian_position)
     
         pygame.display.flip()
       
@@ -142,3 +145,6 @@ class Player:
         self.movable = movable
         self.bag_content = bag_content
         self.position_log = [position]
+        # self.icon = pygame.image.load(symbol).convert()
+        # self.pos = self.icon.get_rect(topleft=(position[0]*45, position[1]*45))
+        # self.area.blit(self.icon, self.pos)
