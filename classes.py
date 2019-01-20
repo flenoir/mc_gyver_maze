@@ -10,8 +10,8 @@ class Level:
         self.file = file
         self.array = []
         self.items = 3
-        with open(self.file, "r") as map:            
-            for line in map:
+        with open(self.file, "r") as maze_map:            
+            for line in maze_map:
                 line_array = []
                 for el in line.strip():                    
                     line_array.append(el)
@@ -86,11 +86,13 @@ class Character:
 
 
 class Game:
-    def __init__(self):
-        self.width = 675
-        self.height = 675
-        self.background = "images/fond1.jpg"
+    def __init__(self, maze, wall):
+        # print(maze)
+        self.width = maze['x_size']
+        self.height = maze['y_size']
+        self.background = maze['background']
         self.player1 = "images/MacGyver.png"
+        self.wall = wall
 
         pygame.init()
 
@@ -102,5 +104,8 @@ class Game:
 
         perso1 = pygame.image.load(self.player1).convert()
         area.blit(perso1, (0, 0))
+
+        wall_block = pygame.image.load(self.wall).convert()
+        area.blit(wall_block, (0, 45))
 
         pygame.display.flip()
