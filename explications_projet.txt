@@ -42,3 +42,16 @@ Après discussion aveec mon mentor, il est preferable de créer le jeu en mdoe con
 
 Je réalise donc une structure autour du pseudo code afin d'utilsier la POO
 
+j'ai pu réaliser la structure en affichage console en faisant un print d'un fichier texte qui contentait des X pour symboliser les mur. 
+
+J'ai pu faire le déplacement de mac cgyver avec des tuples demandées au travers d'un input dans la console. J'ai pu ensuite empecher le déplacement sur les mur et ensuite ajouter la logique du jeu qui veut que Mac gyver ne gagne que s'il se présente devant le guardien avec les 3 items. 
+
+Dans mes classes, le déplacement se faisait dans la classe du labyrinthe. Je l'ai retravaillé ensuite pour qu'elle soit dans la méthode de déplacement des personnages. 
+
+Mon mentor m'a aussi conseillé d'encapsuler le niveau du labyrinthe avant de passer à la realisation du jeu avec Pygame. J'ai donc fait cette encapsulation. 
+
+ Je suis donc passé sur Pygame et pour le moment, je repart sur des nouvelles classes similaires au précédentes afin de reproduire les logiques dans les classes. 
+ J'ai modifié le constructeur du labyrinthe afin d'avoir aussi un tuple correspondant aux indexes de lignes et d'emplacement. Cela m'a permis d'afficher les murs du jeu en multipliant chaque valeur des tuples par 45 (pixels)
+
+
+
