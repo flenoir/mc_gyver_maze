@@ -119,7 +119,7 @@ class Game:
         for item in self.array:
             # print(item[0][0])
             for i, w in enumerate(item):
-                print(i)
+                # print(i)
                 if item[i][0] == "X":
                     self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
                                 
@@ -155,16 +155,30 @@ class Player:
     
     def move(self, event):
         if event.type == KEYDOWN:
-            if event.key == K_DOWN:
+            if event.key == K_DOWN and self.maze_level.array[self.position[0]+1][self.position[1]][0] != "X":
                 print("fleche bas")
                 print(self.position)
-                self.position = self.position[0], self.position[1]+1
+                print("in array, position is : ", self.maze_level.array[self.position[0]][self.position[1]][0])
+                # update of mac_gyver's position
+                self.position = self.position[0]+1, self.position[1]
                 print(self.position)
+                # log new position in log array
                 self.position_log.append(self.position)
                 print(self.position_log)
-                # self.pos.move(self.position[0]*45, self.position[0]*45)
-                # self.maze_level.area.blit(self.icon, self.pos)
-                
-                # print("maze_level", self.maze_level.array[self.position[0]][self.position[1]])
-                # return self.position
+                # display postion on maze level
                 self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+            elif event.key == K_RIGHT and self.maze_level.array[self.position[0]][self.position[1]+1][0] != "X":
+                self.position = self.position[0], self.position[1]+1                
+                self.position_log.append(self.position)                             
+                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+            elif event.key == K_LEFT and self.maze_level.array[self.position[0]][self.position[1]-1][0] != "X":
+                self.position = self.position[0], self.position[1]-1                
+                self.position_log.append(self.position)                             
+                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+            elif event.key == K_UP and self.maze_level.array[self.position[0]-1][self.position[1]][0] != "X":
+                self.position = self.position[0]-1, self.position[1]                
+                self.position_log.append(self.position)                             
+                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+
+            else:
+                print("you cannot go through walls !")
