@@ -106,16 +106,16 @@ class Game:
 
     
     # show maze
-    def show_maze(self, movment, symbol, log):
+    def show_maze(self, char1, char2):
 
         pygame.init()
         self.area = pygame.display.set_mode((self.width, self.height))
-
+        # load background
         background = pygame.image.load(self.background).convert()
         self.area.blit(background, (0, 0))
 
+        # load wall and display walls  on maze_level
         wall_block = pygame.image.load(self.wall).convert()
-        
         for item in self.array:
             # print(item[0][0])
             for i, w in enumerate(item):
@@ -126,18 +126,23 @@ class Game:
         # return 0
 
         # # first display of characters position
-        macgyver = pygame.image.load(symbol).convert()
-        if len(log) > 1:
-            macgyver_position = macgyver.get_rect(topleft=(log[1][-2], log[0][-2])) #=> previous position
-        else: 
-            macgyver_position = macgyver.get_rect(topleft=(0, 0))
-   
-        macgyver_position = macgyver_position.move(movment[1]*45, movment[0]*45)
+        
+        macgyver = pygame.image.load(char1.symbol).convert()
+        guardian = pygame.image.load(char2.symbol).convert()
+
+        macgyver_position = macgyver.get_rect(topleft=(0, 0))
+        guardian_position = guardian.get_rect(topleft=(0, 0))
+
+        macgyver_position = macgyver_position.move(char1.position[1] * 45, char1.position[0] * 45)
+        guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
         self.area.blit(macgyver, macgyver_position)
+        self.area.blit(guardian, guardian_position)
 
     
         pygame.display.flip()
-      
+
+
+
 
 class Player:
     # create character
@@ -153,7 +158,7 @@ class Player:
         self.pos = self.icon.get_rect(topleft=(int(position[1])*45, int(position[0])*45))
         self.maze_level.area.blit(self.icon, self.pos)
     
-    def move(self, event):
+    def move(self, event, char1, char2):
         if event.type == KEYDOWN:
             if event.key == K_DOWN and self.maze_level.array[self.position[0]+1][self.position[1]][0] != "X":
                 print("fleche bas")
@@ -164,21 +169,20 @@ class Player:
                 print(self.position)
                 # log new position in log array
                 self.position_log.append(self.position)
-                print(self.position_log)
                 # display postion on maze level
-                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+                self.maze_level.show_maze(char1, char2)
             elif event.key == K_RIGHT and self.maze_level.array[self.position[0]][self.position[1]+1][0] != "X":
                 self.position = self.position[0], self.position[1]+1                
-                self.position_log.append(self.position)                             
-                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+                self.position_log.append(self.position)
+                self.maze_level.show_maze(char1, char2)
             elif event.key == K_LEFT and self.maze_level.array[self.position[0]][self.position[1]-1][0] != "X":
                 self.position = self.position[0], self.position[1]-1                
-                self.position_log.append(self.position)                             
-                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+                self.position_log.append(self.position)
+                self.maze_level.show_maze(char1, char2)
             elif event.key == K_UP and self.maze_level.array[self.position[0]-1][self.position[1]][0] != "X":
                 self.position = self.position[0]-1, self.position[1]                
-                self.position_log.append(self.position)                             
-                self.maze_level.show_maze(self.position, self.symbol, self.position_log)
+                self.position_log.append(self.position)
+                self.maze_level.show_maze(char1, char2)
 
             else:
                 print("you cannot go through walls !")

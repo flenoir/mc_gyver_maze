@@ -17,8 +17,9 @@ while continuer:
         if event.type == QUIT:
             continuer = 0
         else:
-            jeu.show_maze(mc.position, mc.symbol, mc.position_log)
-            mc.move(event)
+            # jeu.show_maze(mc.position, mc.symbol, mc.position_log)
+            jeu.show_maze(mc, g)
+            mc.move(event, mc, g)
         
             
     
