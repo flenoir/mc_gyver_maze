@@ -1,17 +1,27 @@
+"""Classes file."""
 from random import randint
 import pygame
 from pygame.locals import *
 
 
-class Game:
+class Maze:
+    """Creation and display of Maze."""
+
     def __init__(self, maze, wall):
+        """Maze constructor."""
         self.width = maze['x_size']
         self.height = maze['y_size']
         self.background = maze['background']
         self.wall = wall
         self.maze_file = maze['maze_file']
         self.array = []
+
+        # initalisation of Maze level area
+        pygame.init()
+        # load area
         self.area = pygame.display.set_mode((self.width, self.height))
+        # load background
+        self.back = pygame.image.load(self.background).convert()
 
         with open(self.maze_file, "r") as maze_map:
             for i, line in enumerate(maze_map):
@@ -19,20 +29,15 @@ class Game:
                 for index, el in enumerate(line.strip()):
                     line_array.append((el, i, index))                    
                 self.array.append(line_array)
+        
 
-
-    
-    # show maze
     def show_maze(self, char1, char2):
+        """Maze display."""
 
-        pygame.init()
-        self.area = pygame.display.set_mode((self.width, self.height))
+        # pin background on area
+        self.area.blit(self.back, (0, 0))
 
-        # load background
-        background = pygame.image.load(self.background).convert()
-        self.area.blit(background, (0, 0))
-
-        # load wall and display walls  on maze_level
+        # load wall and display/pin walls on maze_level
         wall_block = pygame.image.load(self.wall).convert()
         for item in self.array:
             # print(item[0][0])
@@ -42,8 +47,7 @@ class Game:
                     self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
 
 
-        # # first display of characters position (to be refactored)
-        
+        # first display of characters position (to be refactored)       
         macgyver = pygame.image.load(char1.symbol).convert()
         guardian = pygame.image.load(char2.symbol).convert()
 
@@ -58,11 +62,11 @@ class Game:
         pygame.display.flip()
 
 
+class Character:
+    """Creation and movment of Character."""
 
-
-class Player:
-    # create character
     def __init__(self, name, position, symbol, maze_level, movable, bag_content):
+        """Character constructor."""
         self.name = name
         self.position = position
         self.symbol = symbol
@@ -73,8 +77,9 @@ class Player:
         self.icon = pygame.image.load(symbol).convert()
         self.pos = self.icon.get_rect(topleft=(int(position[1])*45, int(position[0])*45))
         self.maze_level.area.blit(self.icon, self.pos)
-    
+
     def move(self, event, char1, char2):
+        """Character movment."""
         if event.type == KEYDOWN:
             if event.key == K_DOWN and self.maze_level.array[self.position[0]+1][self.position[1]][0] != "X":
                 print("fleche bas")
