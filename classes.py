@@ -83,7 +83,7 @@ class Character:
         """Character movment."""
         if event.type == KEYDOWN:
             checked_move = char1.check_move(self.position, event)
-            print("le mouve checké est", checked_move)
+            print("le mouvement checké est", checked_move)
             self.position = checked_move[0], checked_move[1]
 
             # if event.key == K_DOWN and self.maze_level.array[self.position[0]+1][self.position[1]][0] != "X":
@@ -134,20 +134,24 @@ class Character:
         x = keystroke[event.key][0]
         y = keystroke[event.key][1]
 
-        if event.key == K_DOWN: # and self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
-            print("sortiekeystroke ", x)
-            print("event.key ", event.key)
-            # print("self.maze", self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-            new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-            print("authorise", new_move)
-            return new_move
+        new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+        print("authorise", new_move)
+        return new_move
+
+        # if event.key == K_DOWN: # and self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
+        #     print("sortiekeystroke ", x)
+        #     print("event.key ", event.key)
+        #     # print("self.maze", self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+        #     new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+        #     print("authorise", new_move)
+        #     return new_move
         
-        if event.key == K_UP: # and self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
-            print("sortiekeystroke ", x)
-            print("event.key ", event.key)
-            # print("self.maze", self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-            new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-            print("authorise", new_move)
+        # if event.key == K_UP: # and self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
+        #     print("sortiekeystroke ", x)
+        #     print("event.key ", event.key)
+        #     # print("self.maze", self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+        #     new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+        #     print("authorise", new_move)
         
         # if self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
         #     print("there's a wall")
