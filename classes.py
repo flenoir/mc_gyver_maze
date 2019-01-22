@@ -124,6 +124,8 @@ class Character:
             276: (-1, 0)
         }
 
+        x = keystroke[event.key][0]
+        y = keystroke[event.key][1]
         print("la position actuelle est", pos)
         # if self.maze_level.array[pos[0]+1][pos[1]][0] != "X":
         #     new_move = (self.maze_level.array[pos[0]+1][pos[1]][1], self.maze_level.array[pos[0]+1][pos[1]][2])
@@ -131,8 +133,7 @@ class Character:
         #     return new_move
         # else:
         #     print("you cannot go through walls or move outside area !")
-        x = keystroke[event.key][0]
-        y = keystroke[event.key][1]
+        
 
         new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
         print("authorise", new_move)
