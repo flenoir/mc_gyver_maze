@@ -30,7 +30,6 @@ class Maze:
                     line_array.append((el, i, index))                    
                 self.array.append(line_array)
         
-
     def show_maze(self, char1, char2):
         """Maze display."""
 
@@ -62,8 +61,6 @@ class Maze:
         pygame.display.flip()
 
     
-
-
 class Character:
     """Creation and movment of Character."""
 
@@ -86,37 +83,9 @@ class Character:
             print("le mouvement checké est", checked_move)
             self.position = checked_move[0], checked_move[1]
 
-            # if event.key == K_DOWN and self.maze_level.array[self.position[0]+1][self.position[1]][0] != "X":
-            #     print("fleche bas")
-            #     # checked_move = char1.check_move(self.position)
-            #     # print("la position actuelle est", self.position)
-            #     print("in array, position is : ", self.maze_level.array[self.position[0]][self.position[1]][0])
-            #     # update of mac_gyver's position
-            #     self.position = self.position[0]+1, self.position[1]
-            #     print("checked_position", checked_move)
-            #     print("self.position", self.position)
-            #     # log new position in log array
-            #     self.position_log.append(self.position)
-            #     # display postion on maze level
-            #     self.maze_level.show_maze(char1, char2)
-            # elif event.key == K_RIGHT and self.maze_level.array[self.position[0]][self.position[1]+1][0] != "X":
-            #     self.position = self.position[0], self.position[1]+1                
-            #     self.position_log.append(self.position)
-            #     self.maze_level.show_maze(char1, char2)
-            # elif event.key == K_LEFT and self.maze_level.array[self.position[0]][self.position[1]-1][0] != "X":
-            #     self.position = self.position[0], self.position[1]-1                
-            #     self.position_log.append(self.position)
-            #     self.maze_level.show_maze(char1, char2)
-            # elif event.key == K_UP and self.maze_level.array[self.position[0]-1][self.position[1]][0] != "X":
-            #     self.position = self.position[0]-1, self.position[1]                
-            #     self.position_log.append(self.position)
-            #     self.maze_level.show_maze(char1, char2)
-
-            # else:
-            #     print("you cannot go through walls !")
-
     def check_move(self, pos, event):
         """Check move legality."""
+        # create dictionnary of possible keys (K.DOWN, K_UP, etc...)
         keystroke = {
             274: (0, 1),
             273: (0, -1),
@@ -126,35 +95,11 @@ class Character:
 
         x = keystroke[event.key][0]
         y = keystroke[event.key][1]
-        print("la position actuelle est", pos)
-        # if self.maze_level.array[pos[0]+1][pos[1]][0] != "X":
-        #     new_move = (self.maze_level.array[pos[0]+1][pos[1]][1], self.maze_level.array[pos[0]+1][pos[1]][2])
-        #     print("authorise", new_move)
-        #     return new_move
-        # else:
-        #     print("you cannot go through walls or move outside area !")
         
-
-        new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-        print("authorise", new_move)
-        return new_move
-
-        # if event.key == K_DOWN: # and self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
-        #     print("sortiekeystroke ", x)
-        #     print("event.key ", event.key)
-        #     # print("self.maze", self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-        #     new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-        #     print("authorise", new_move)
-        #     return new_move
-        
-        # if event.key == K_UP: # and self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
-        #     print("sortiekeystroke ", x)
-        #     print("event.key ", event.key)
-        #     # print("self.maze", self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-        #     new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-        #     print("authorise", new_move)
-        
-        # if self.maze_level.array[pos[0]+ x][pos[1]+ y][0] != "X":
-        #     print("there's a wall")
-        #     # new_move = (self.maze_level.array[pos[0]+ x][pos[1]+ y][0][1], self.maze_level.array[pos[0]+ x][pos[1]+ y][0][2])
-        #     # print("authorise", new_move)
+        if self.maze_level.array[pos[0]+y][pos[1]+x][0] != "X":
+            new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+            return new_move
+        else:
+            new_move = (self.maze_level.array[pos[0]][pos[1]][1],  self.maze_level.array[pos[0]][pos[1]][2])
+            return new_move
+    
