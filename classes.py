@@ -30,6 +30,8 @@ class Maze:
                     line_array.append((el, i, index))                    
                 self.array.append(line_array)
         
+       
+        
 
     def show_maze(self, char1, char2):
         """Maze display."""
@@ -65,13 +67,12 @@ class Maze:
 class Character:
     """Creation and movment of Character."""
 
-    def __init__(self, name, position, symbol, maze_level, movable, bag_content):
+    def __init__(self, name, position, symbol, maze_level, bag_content):
         """Character constructor."""
         self.name = name
         self.position = position
         self.symbol = symbol
         self.maze_level = maze_level
-        self.movable = movable
         self.bag_content = bag_content
         self.position_log = [position]
         self.icon = pygame.image.load(symbol).convert()

@@ -7,8 +7,8 @@ from pygame.locals import *
 
 jeu = Maze(constants.maze1, constants.wall)
 
-mc = Character("Mac Gyver", (0, 1), "images/MacGyver.png", jeu, True, 0)
-g = Character("The Guardian", (2, 14), "images/Gardien.png", jeu, False, 0)
+mc = Character("Mac Gyver", (0, 1), "images/MacGyver.png", jeu, 0)
+g = Character("The Guardian", (2, 14), "images/Gardien.png", jeu, 0)
 
 
 continuer = 1
