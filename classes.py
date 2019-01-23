@@ -34,6 +34,7 @@ class Maze:
                 self.array.append(line_array)
         
         # generate random display of items
+        
         while len(self.items) > 0:
             x,y = randint(0, 14), randint(0, 14)
 
