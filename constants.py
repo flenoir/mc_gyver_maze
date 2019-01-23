@@ -8,3 +8,5 @@ maze1 = {
 
 
 wall = "images/wall.jpg"
+
+items = ["images/ether.png", "images/seringue.png", "images/tube_plastique.png"]

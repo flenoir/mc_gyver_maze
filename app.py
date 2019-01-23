@@ -5,7 +5,7 @@ import pygame
 from pygame.locals import *
 
 
-jeu = Maze(constants.maze1, constants.wall)
+jeu = Maze(constants.maze1, constants.wall, constants.items)
 
 mc = Character("Mac Gyver", (0, 1), "images/MacGyver.png", jeu, 0)
 g = Character("The Guardian", (2, 14), "images/Gardien.png", jeu, 0)

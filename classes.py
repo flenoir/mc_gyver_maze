@@ -7,7 +7,7 @@ from pygame.locals import *
 class Maze:
     """Creation and display of Maze."""
 
-    def __init__(self, maze, wall):
+    def __init__(self, maze, wall, items_pictures):
         """Maze constructor."""
         self.width = maze['x_size']
         self.height = maze['y_size']
@@ -15,6 +15,10 @@ class Maze:
         self.wall = wall
         self.maze_file = maze['maze_file']
         self.array = []
+        self.items = ['J', 'K', 'L']
+        self.items_pictures = items_pictures
+        self.items_pos =[]
+
 
         # initalisation of Maze level area
         pygame.init()
@@ -27,9 +31,25 @@ class Maze:
             for i, line in enumerate(maze_map):
                 line_array = []
                 for index, el in enumerate(line.strip()):
-                    line_array.append((el, i, index))                    
+                    line_array.append([el, i, index])                    
                 self.array.append(line_array)
         
+        # generate random display of items
+        while len(self.items) > 0:
+            x,y = randint(0, 14), randint(0, 14)
+
+            if self.array[x][y][0] != 'X':
+                item = self.items.pop()
+                self.array[x][y][0] = item
+                self.items_pos.append(self.array[x][y])
+        
+        for i,v in enumerate(self.items_pos):
+            print("les positions des items sont ", i, v)
+            v[0] = pygame.image.load(self.items_pictures[i]).convert()
+            print(v[0])
+            self.area.blit(v[0], (v[1],v[2]))
+
+
     def show_maze(self, char1, char2):
         """Maze display."""
 
@@ -45,6 +65,11 @@ class Maze:
                 if item[i][0] == "X":
                     self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
 
+        for i, v in enumerate(self.items_pos):
+            print("les positions des items sont ", i, v)
+            v[0] = pygame.image.load(self.items_pictures[i]).convert()
+            print(v[0])
+            self.area.blit(v[0], (v[1]*45,v[2]*45))
 
         # first display of characters position (to be refactored)       
         macgyver = pygame.image.load(char1.symbol).convert()
