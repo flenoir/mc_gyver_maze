@@ -19,7 +19,6 @@ class Maze:
         self.items_pictures = items_pictures
         self.items_pos =[]
 
-
         # initalisation of Maze level area
         pygame.init()
         # load area
@@ -42,13 +41,6 @@ class Maze:
                 item = self.items.pop()
                 self.array[x][y][0] = item
                 self.items_pos.append(self.array[x][y])
-        
-        for i,v in enumerate(self.items_pos):
-            print("les positions des items sont ", i, v)
-            v[0] = pygame.image.load(self.items_pictures[i]).convert()
-            print(v[0])
-            self.area.blit(v[0], (v[1],v[2]))
-
 
     def show_maze(self, char1, char2):
         """Maze display."""
