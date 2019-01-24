@@ -43,6 +43,24 @@ class Maze:
                 self.array[x][y][0] = item
                 self.items_pos.append(self.array[x][y])
 
+            # pin background on area
+        self.area.blit(self.back, (0, 0))
+
+        # # load wall and display/pin walls on maze_level
+        # wall_block = pygame.image.load(self.wall).convert()
+        # for item in self.array:
+        #     # print(item[0][0])
+        #     for i, w in enumerate(item):
+        #         # print(i)
+        #         if item[i][0] == "X":
+        #             self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
+
+        # for i, v in enumerate(self.items_pos):
+        #     print("les positions des items sont ", i, v)
+        #     v[0] = pygame.image.load(self.items_pictures[i]).convert()
+        #     print(v[0])
+        #     self.area.blit(v[0], (v[2]*45,v[1]*45))     
+
     def show_maze(self, char1, char2):
         """Maze display."""
 
@@ -70,6 +88,8 @@ class Maze:
 
         macgyver_position = macgyver.get_rect(topleft=(0, 0))
         guardian_position = guardian.get_rect(topleft=(0, 0))
+
+        print("log mac gyver", char1.position_log)
 
         macgyver_position = macgyver_position.move(char1.position[1] * 45, char1.position[0] * 45)
         guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
