@@ -62,7 +62,7 @@ class Maze:
             print("les positions des items sont ", i, v)
             v[0] = pygame.image.load(self.items_pictures[i]).convert()
             print(v[0])
-            self.area.blit(v[0], (v[1]*45,v[2]*45))
+            self.area.blit(v[0], (v[2]*45,v[1]*45))
 
         # first display of characters position (to be refactored)       
         macgyver = pygame.image.load(char1.symbol).convert()
