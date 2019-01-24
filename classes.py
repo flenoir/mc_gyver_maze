@@ -103,7 +103,7 @@ class Character:
         """Character movment."""
         if event.type == KEYDOWN:
             checked_move = char1.check_move(self.position, event)
-            print("le mouvement checké est", checked_move)
+            # print("le mouvement checké est", checked_move)
             self.position = checked_move[0], checked_move[1]
 
     def check_move(self, pos, event):
@@ -118,8 +118,18 @@ class Character:
 
         x = keystroke[event.key][0]
         y = keystroke[event.key][1]
+
+        sorted_letter = self.maze_level.array[pos[0]+y][pos[1]+x][0]
         
-        if self.maze_level.array[pos[0]+y][pos[1]+x][0] != "X":
+        if sorted_letter != "X":
+            if sorted_letter == "J":
+                print("J grabed")
+                print("la liste de tous les items", self.maze_level.items_pos)
+                for j in self.maze_level.items_pos:
+                    print(j[0])
+                    if j[0] == 'J':
+                        self.maze_level.items_pos.remove(j)
+                print("la liste de tous les items AFTER : ", self.maze_level.items_pos)
             new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
             return new_move
         else:
