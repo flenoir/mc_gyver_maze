@@ -74,7 +74,7 @@ class Maze:
         macgyver_position = macgyver.get_rect(topleft=(0, 0))
         guardian_position = guardian.get_rect(topleft=(0, 0))
 
-        print("log mac gyver", char1.position_log)
+        # print("log mac gyver", char1.position_log)
 
         macgyver_position = macgyver_position.move(char1.position[1] * 45, char1.position[0] * 45)
         guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
@@ -120,16 +120,22 @@ class Character:
         y = keystroke[event.key][1]
 
         sorted_letter = self.maze_level.array[pos[0]+y][pos[1]+x][0]
+
         
         if sorted_letter != "X":
-            if sorted_letter == "J":
-                print("J grabed")
-                print("la liste de tous les items", self.maze_level.items_pos)
-                for j in self.maze_level.items_pos:
-                    print(j[0])
-                    if j[0] == 'J':
-                        self.maze_level.items_pos.remove(j)
-                print("la liste de tous les items AFTER : ", self.maze_level.items_pos)
+            # if J, K, L found remove item
+            for j in self.maze_level.items_pos:
+                if j[0] == sorted_letter:
+                    self.maze_level.items_pos.remove(j)
+
+            # if sorted_letter == "J":
+            #     print("J grabed")
+            #     print("la liste de tous les items", self.maze_level.items_pos)
+            #     for j in self.maze_level.items_pos:
+            #         print(j[0])
+            #         if j[0] == 'J':
+            #             self.maze_level.items_pos.remove(j)
+            #     print("la liste de tous les items AFTER : ", self.maze_level.items_pos)
             new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
             return new_move
         else:
