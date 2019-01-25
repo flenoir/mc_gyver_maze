@@ -31,6 +31,8 @@ class Maze:
         # load background
         self.back = pygame.image.load(self.background).convert()
 
+        
+
         with open(self.maze_file, "r") as maze_map:
             for i, line in enumerate(maze_map):
                 line_array = []
@@ -56,7 +58,7 @@ class Maze:
 
         # pin background on area
         self.area.blit(self.back, (0, 0))
-
+        
         # load wall and display/pin walls on maze_level
         wall_block = pygame.image.load(self.wall).convert()
         for item in self.array:            
@@ -82,6 +84,12 @@ class Maze:
         guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
         self.area.blit(macgyver, macgyver_position)
         self.area.blit(guardian, guardian_position)
+
+        # draw counter and sipaly collected items
+        pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((0, 675), (675, 25)))
+        font = pygame.font.SysFont('Arial', 20, bold=True)
+        self.area.blit(font.render('Items in bag : {}'.format(char1.bag_content), True, (0,0,26)), (5, 675))
+        
 
         pygame.display.flip()
 
