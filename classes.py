@@ -38,8 +38,7 @@ class Maze:
                     line_array.append([el, i, index])                    
                 self.array.append(line_array)
         
-        # generate random display of items
-        
+        # generate random display of items        
         while len(self.items) > 0:
             x,y = randint(0, 14), randint(0, 14)
 
@@ -60,22 +59,15 @@ class Maze:
 
         # load wall and display/pin walls on maze_level
         wall_block = pygame.image.load(self.wall).convert()
-        for item in self.array:
-            # print(item[0][0])
-            for i, w in enumerate(item):
-                # print(i)
+        for item in self.array:            
+            for i, w in enumerate(item):                
                 if item[i][0] == "X":
                     self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
 
         # display of items
         for i, v in enumerate(self.items_pos):
-            # print("les positions des items sont ", i, v)
-            # print("les self items sont ", self.items_pos[i])
-            # print("la lettre ", v[0][0])
-            # print ("le premier coordoné est ", v[0][1])
-            toto = self.items_pos[i][1]
-            i = pygame.image.load(toto).convert()
-            print(i)
+            picture = self.items_pos[i][1]
+            i = pygame.image.load(picture).convert()            
             self.area.blit(i, (v[0][2]*45,v[0][1]*45))
 
         # first display of characters position (to be refactored)       
@@ -85,8 +77,7 @@ class Maze:
         macgyver_position = macgyver.get_rect(topleft=(0, 0))
         guardian_position = guardian.get_rect(topleft=(0, 0))
 
-        # print("log mac gyver", char1.position_log)
-
+        
         macgyver_position = macgyver_position.move(char1.position[1] * 45, char1.position[0] * 45)
         guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
         self.area.blit(macgyver, macgyver_position)
@@ -113,11 +104,10 @@ class Character:
     def move(self, event, char1, char2):
         """Character movment."""
         if event.type == KEYDOWN:
-            checked_move = char1.check_move(self.position, event)
-            # print("le mouvement checké est", checked_move)
+            checked_move = char1.check_move(self.position, event, char2)            
             self.position = checked_move[0], checked_move[1]
 
-    def check_move(self, pos, event):
+    def check_move(self, pos, event, char2):
         """Check move legality."""
         # create dictionnary of possible keys (K.DOWN, K_UP, etc...)
         keystroke = {
@@ -135,22 +125,19 @@ class Character:
         
         if sorted_letter != "X":
             # if J, K, L found remove item
-            for j in self.maze_level.items_pos:
-                print("la sorted letter est", j)
-                if j[0][0] == sorted_letter:
-                    print("nouveau : ",self.maze_level.items_pos)
-                    print("index : ", j)
+            for j in self.maze_level.items_pos:                
+                if j[0][0] == sorted_letter:                    
                     self.maze_level.items_pos.remove(j)
-
-            # if sorted_letter == "J":
-            #     print("J grabed")
-            #     print("la liste de tous les items", self.maze_level.items_pos)
-            #     for j in self.maze_level.items_pos:
-            #         print(j[0])
-            #         if j[0] == 'J':
-            #             self.maze_level.items_pos.remove(j)
-            #     print("la liste de tous les items AFTER : ", self.maze_level.items_pos)
+                    self.bag_content += 1
+            
             new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+            # print("char2 position", char2.position)
+            # print("the new move is :", new_move)
+            if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
+                print("mac Gyvers looses")
+            elif new_move == (2,14) and self.bag_content  == 3:
+                print("mac Gyvers won")
+            
             return new_move
         else:
             new_move = (self.maze_level.array[pos[0]][pos[1]][1],  self.maze_level.array[pos[0]][pos[1]][2])
