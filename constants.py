@@ -6,6 +6,14 @@ maze1 = {
     "maze_file": "maze_map.py"
 }
 
+maze2 = {
+    "x_size": 474,
+    "y_size": 284,
+    "unit": 45,
+    "background": "images/fond2.jpg",
+    "maze_file": "maze_map.py"
+}
+
 
 wall = "images/wall.jpg"
 

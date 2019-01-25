@@ -3,6 +3,32 @@ from random import randint
 import pygame
 from pygame.locals import *
 
+class Screen:
+    """ Creation of start screen of game"""
+
+    def __init__(self, maze):
+        self.width = maze['x_size']
+        self.height = maze['y_size']
+        self.background  = maze['background']
+
+    def display_screen(self):
+        # initalisation of screen
+        pygame.init()
+        # load area
+        self.screen = pygame.display.set_mode((self.width, self.height))
+        # load background
+        self.back = pygame.image.load(self.background).convert()
+
+        # pin background on area
+        self.screen.blit(self.back, (0, 0))
+
+        # draw box to click and start game
+        pygame.draw.rect(self.screen, (93, 188, 210), pygame.Rect((50, 140), (140, 25)))
+        font = pygame.font.SysFont('Arial', 20, bold=True)
+        self.screen.blit(font.render('Start Game', True, (0,0,26)), (60, 140))
+
+        pygame.display.flip()
+
 
 class Maze:
     """Creation and display of Maze."""
@@ -85,7 +111,7 @@ class Maze:
         self.area.blit(macgyver, macgyver_position)
         self.area.blit(guardian, guardian_position)
 
-        # draw counter and sipaly collected items
+        # draw counter and display collected items
         pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((0, 675), (675, 25)))
         font = pygame.font.SysFont('Arial', 20, bold=True)
         self.area.blit(font.render('Items in bag : {}'.format(char1.bag_content), True, (0,0,26)), (5, 675))
@@ -122,8 +148,11 @@ class Character:
             274: (0, 1),
             273: (0, -1),
             275: (1, 0),
-            276: (-1, 0)
+            276: (-1, 0),
+            115: (0,0)  # to avoid stop on s key press
         }
+
+
 
         x = keystroke[event.key][0]
         y = keystroke[event.key][1]
