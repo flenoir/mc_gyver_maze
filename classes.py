@@ -15,7 +15,12 @@ class Maze:
         self.wall = wall
         self.maze_file = maze['maze_file']
         self.array = []
-        self.items = ['J', 'K', 'L']
+        # self.items = ['J', 'K', 'L']
+        self.items = {
+            'J' : items_pictures[0],
+            'K' : items_pictures[1],
+            'L' : items_pictures[2]
+        }
         self.items_pictures = items_pictures
         self.items_pos =[]
 
@@ -39,9 +44,10 @@ class Maze:
             x,y = randint(0, 14), randint(0, 14)
 
             if self.array[x][y][0] != 'X':
-                item = self.items.pop()
-                self.array[x][y][0] = item
-                self.items_pos.append(self.array[x][y])
+                item = self.items.popitem()
+                self.array[x][y][0] = item[0]
+                item_tuple = self.array[x][y], item[1]
+                self.items_pos.append(item_tuple)
 
             # pin background on area
         self.area.blit(self.back, (0, 0))
@@ -61,11 +67,16 @@ class Maze:
                 if item[i][0] == "X":
                     self.area.blit(wall_block, (int(item[i][2])*45, int(item[i][1])*45))
 
+        # display of items
         for i, v in enumerate(self.items_pos):
-            print("les positions des items sont ", i, v)
-            i = pygame.image.load(self.items_pictures[i]).convert()
+            # print("les positions des items sont ", i, v)
+            # print("les self items sont ", self.items_pos[i])
+            # print("la lettre ", v[0][0])
+            # print ("le premier coordoné est ", v[0][1])
+            toto = self.items_pos[i][1]
+            i = pygame.image.load(toto).convert()
             print(i)
-            self.area.blit(i, (v[2]*45,v[1]*45))
+            self.area.blit(i, (v[0][2]*45,v[0][1]*45))
 
         # first display of characters position (to be refactored)       
         macgyver = pygame.image.load(char1.symbol).convert()
@@ -125,7 +136,10 @@ class Character:
         if sorted_letter != "X":
             # if J, K, L found remove item
             for j in self.maze_level.items_pos:
-                if j[0] == sorted_letter:
+                print("la sorted letter est", j)
+                if j[0][0] == sorted_letter:
+                    print("nouveau : ",self.maze_level.items_pos)
+                    print("index : ", j)
                     self.maze_level.items_pos.remove(j)
 
             # if sorted_letter == "J":
