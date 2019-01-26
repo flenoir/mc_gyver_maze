@@ -55,6 +55,7 @@ class Maze:
         pygame.init()
         # load area
         self.area = pygame.display.set_mode((self.width, self.height))
+        
 
         # load background
         self.back = pygame.image.load(self.background).convert() 
@@ -85,6 +86,8 @@ class Maze:
     def show_maze(self, char1, char2):
         """Maze display."""
         
+        # update display form screen start resolution
+        self.area = pygame.display.set_mode((self.width, self.height))
         # pin background on area
         self.area.blit(self.back, (0, 0))
         
