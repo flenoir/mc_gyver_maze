@@ -3,15 +3,14 @@ from random import randint
 import pygame
 from pygame.locals import *
 
+
 class Screen:
     """ Creation of start screen of game"""
 
     def __init__(self, maze):
         self.width = maze['x_size']
         self.height = maze['y_size']
-        self.background  = maze['background']
-
-                
+        self.background = maze['background']
 
     def display_screen(self):
         # initalisation of screen
@@ -58,11 +57,8 @@ class Maze:
         # load area
         self.area = pygame.display.set_mode((self.width, self.height))
 
-        
         # load background
-        self.back = pygame.image.load(self.background).convert()
-
-        
+        self.back = pygame.image.load(self.background).convert() 
 
         with open(self.maze_file, "r") as maze_map:
             for i, line in enumerate(maze_map):
@@ -73,13 +69,17 @@ class Maze:
         
         # generate random display of items        
         while len(self.items) > 0:
-            x,y = randint(0, 14), randint(0, 14)
+            x, y = randint(0, 14), randint(0, 14)
+
+            titi = self.array[x][y][1], self.array[x][y][2]
+            # print('la valeur est :', titi)
 
             if self.array[x][y][0] != 'X':
-                item = self.items.popitem()
-                self.array[x][y][0] = item[0]
-                item_tuple = self.array[x][y], item[1]
-                self.items_pos.append(item_tuple)
+                if titi != (0, 1) and titi != (2, 14):
+                    item = self.items.popitem()
+                    self.array[x][y][0] = item[0]
+                    item_tuple = self.array[x][y], item[1]
+                    self.items_pos.append(item_tuple)
 
             # pin background on area
         self.area.blit(self.back, (0, 0))
@@ -101,7 +101,7 @@ class Maze:
         for i, v in enumerate(self.items_pos):
             picture = self.items_pos[i][1]
             i = pygame.image.load(picture).convert()            
-            self.area.blit(i, (v[0][2]*45,v[0][1]*45))
+            self.area.blit(i, (v[0][2]*45, v[0][1]*45))
 
         # first display of characters position (to be refactored)       
         macgyver = pygame.image.load(char1.symbol).convert()
@@ -155,17 +155,16 @@ class Character:
             115: (0,0)  # to avoid stop on s key press
         }
 
+        print("position = ", pos)
 
         if event.key in keystroke:
             print("the key", event.key, "exists and the value is", keystroke[event.key])
         
-
             x = keystroke[event.key][0]
             y = keystroke[event.key][1]
 
             sorted_letter = self.maze_level.array[pos[0]+y][pos[1]+x][0]
 
-            
             if sorted_letter != "X":
                 # if J, K, L found remove item
                 for j in self.maze_level.items_pos:                
@@ -178,14 +177,14 @@ class Character:
                 # print("the new move is :", new_move)
                 if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
                     print("mac Gyvers looses")
-                elif new_move == (2,14) and self.bag_content  == 3:
+                elif new_move == (2,14) and self.bag_content == 3:
                     print("mac Gyvers won")
                 
                 return new_move
             else:
-                new_move = (self.maze_level.array[pos[0]][pos[1]][1],  self.maze_level.array[pos[0]][pos[1]][2])
+                new_move = (self.maze_level.array[pos[0]][pos[1]][1], self.maze_level.array[pos[0]][pos[1]][2])
                 return new_move
     
-        else :
+        else:
             print("you cannot use this key")
             return pos
