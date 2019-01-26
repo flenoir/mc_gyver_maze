@@ -11,11 +11,14 @@ class Screen:
         self.height = maze['y_size']
         self.background  = maze['background']
 
+                
+
     def display_screen(self):
         # initalisation of screen
         pygame.init()
         # load area
         self.screen = pygame.display.set_mode((self.width, self.height))
+        
         # load background
         self.back = pygame.image.load(self.background).convert()
 
@@ -54,6 +57,8 @@ class Maze:
         pygame.init()
         # load area
         self.area = pygame.display.set_mode((self.width, self.height))
+
+        
         # load background
         self.back = pygame.image.load(self.background).convert()
 
@@ -81,7 +86,7 @@ class Maze:
 
     def show_maze(self, char1, char2):
         """Maze display."""
-
+        
         # pin background on area
         self.area.blit(self.back, (0, 0))
         
@@ -105,7 +110,6 @@ class Maze:
         macgyver_position = macgyver.get_rect(topleft=(0, 0))
         guardian_position = guardian.get_rect(topleft=(0, 0))
 
-        
         macgyver_position = macgyver_position.move(char1.position[1] * 45, char1.position[0] * 45)
         guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
         self.area.blit(macgyver, macgyver_position)
@@ -116,7 +120,6 @@ class Maze:
         font = pygame.font.SysFont('Arial', 20, bold=True)
         self.area.blit(font.render('Items in bag : {}'.format(char1.bag_content), True, (0,0,26)), (5, 675))
         
-
         pygame.display.flip()
 
     
@@ -153,30 +156,36 @@ class Character:
         }
 
 
-
-        x = keystroke[event.key][0]
-        y = keystroke[event.key][1]
-
-        sorted_letter = self.maze_level.array[pos[0]+y][pos[1]+x][0]
-
+        if event.key in keystroke:
+            print("the key", event.key, "exists and the value is", keystroke[event.key])
         
-        if sorted_letter != "X":
-            # if J, K, L found remove item
-            for j in self.maze_level.items_pos:                
-                if j[0][0] == sorted_letter:                    
-                    self.maze_level.items_pos.remove(j)
-                    self.bag_content += 1
+
+            x = keystroke[event.key][0]
+            y = keystroke[event.key][1]
+
+            sorted_letter = self.maze_level.array[pos[0]+y][pos[1]+x][0]
+
             
-            new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-            # print("char2 position", char2.position)
-            # print("the new move is :", new_move)
-            if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
-                print("mac Gyvers looses")
-            elif new_move == (2,14) and self.bag_content  == 3:
-                print("mac Gyvers won")
-            
-            return new_move
-        else:
-            new_move = (self.maze_level.array[pos[0]][pos[1]][1],  self.maze_level.array[pos[0]][pos[1]][2])
-            return new_move
+            if sorted_letter != "X":
+                # if J, K, L found remove item
+                for j in self.maze_level.items_pos:                
+                    if j[0][0] == sorted_letter:                    
+                        self.maze_level.items_pos.remove(j)
+                        self.bag_content += 1
+                
+                new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
+                # print("char2 position", char2.position)
+                # print("the new move is :", new_move)
+                if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
+                    print("mac Gyvers looses")
+                elif new_move == (2,14) and self.bag_content  == 3:
+                    print("mac Gyvers won")
+                
+                return new_move
+            else:
+                new_move = (self.maze_level.array[pos[0]][pos[1]][1],  self.maze_level.array[pos[0]][pos[1]][2])
+                return new_move
     
+        else :
+            print("you cannot use this key")
+            return pos
