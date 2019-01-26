@@ -27,7 +27,7 @@ class Screen:
         # draw box to click and start game
         pygame.draw.rect(self.screen, (93, 188, 210), pygame.Rect((50, 140), (140, 25)))
         font = pygame.font.SysFont('Arial', 20, bold=True)
-        self.screen.blit(font.render('Start Game', True, (0,0,26)), (60, 140))
+        self.screen.blit(font.render('Start Game', True, (0, 0, 26)), (60, 140))
 
         pygame.display.flip()
 
@@ -42,15 +42,14 @@ class Maze:
         self.background = maze['background']
         self.wall = wall
         self.maze_file = maze['maze_file']
-        self.array = []
-        # self.items = ['J', 'K', 'L']
+        self.array = []        
         self.items = {
-            'J' : items_pictures[0],
-            'K' : items_pictures[1],
-            'L' : items_pictures[2]
+            'J': items_pictures[0],
+            'K': items_pictures[1],
+            'L': items_pictures[2]
         }
         self.items_pictures = items_pictures
-        self.items_pos =[]
+        self.items_pos = []
 
         # initalisation of Maze level area
         pygame.init()
@@ -70,12 +69,11 @@ class Maze:
         # generate random display of items        
         while len(self.items) > 0:
             x, y = randint(0, 14), randint(0, 14)
-
-            titi = self.array[x][y][1], self.array[x][y][2]
-            # print('la valeur est :', titi)
+            random_tuple = self.array[x][y][1], self.array[x][y][2]            
 
             if self.array[x][y][0] != 'X':
-                if titi != (0, 1) and titi != (2, 14):
+                # avoid position of item on characters position
+                if random_tuple != (0, 1) and random_tuple != (2, 14):
                     item = self.items.popitem()
                     self.array[x][y][0] = item[0]
                     item_tuple = self.array[x][y], item[1]
@@ -152,29 +150,27 @@ class Character:
             273: (0, -1),
             275: (1, 0),
             276: (-1, 0),
-            115: (0,0)  # to avoid stop on s key press
+            115: (0, 0)  # to avoid stop on s key press
         }
 
         print("position = ", pos)
 
-        if event.key in keystroke:
-            print("the key", event.key, "exists and the value is", keystroke[event.key])
-        
+        if event.key in keystroke:          
             x = keystroke[event.key][0]
             y = keystroke[event.key][1]
-
             sorted_letter = self.maze_level.array[pos[0]+y][pos[1]+x][0]
 
             if sorted_letter != "X":
                 # if J, K, L found remove item
                 for j in self.maze_level.items_pos:                
-                    if j[0][0] == sorted_letter:                    
+                    if j[0][0] == sorted_letter:
+                        son = pygame.mixer.Sound("sons/item_pick.wav")
+                        son.play()                   
                         self.maze_level.items_pos.remove(j)
                         self.bag_content += 1
                 
                 new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
-                # print("char2 position", char2.position)
-                # print("the new move is :", new_move)
+                
                 if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
                     print("mac Gyvers looses")
                 elif new_move == (2,14) and self.bag_content == 3:
