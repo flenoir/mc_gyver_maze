@@ -83,6 +83,14 @@ class Maze:
         # pin background on area
         self.area.blit(self.back, (0, 0))
 
+    def char_position(self, characters):
+        """Characters display."""
+        for c in characters:
+            c.name = pygame.image.load(c.symbol).convert_alpha()
+            character_pos = c.name.get_rect(topleft=(0, 0))
+            character_pos = character_pos.move(c.position[1] * 45, c.position[0] * 45)
+            self.area.blit(c.name, character_pos)
+
     def show_maze(self, char1, char2):
         """Maze display."""
 
@@ -104,17 +112,9 @@ class Maze:
             i = pygame.image.load(picture).convert_alpha()            
             self.area.blit(i, (v[0][2]*45, v[0][1]*45))
 
-        # first display of characters position (to be refactored)       
-        macgyver = pygame.image.load(char1.symbol).convert_alpha()
-        guardian = pygame.image.load(char2.symbol).convert_alpha()
-
-        macgyver_position = macgyver.get_rect(topleft=(0, 0))
-        guardian_position = guardian.get_rect(topleft=(0, 0))
-
-        macgyver_position = macgyver_position.move(char1.position[1] * 45, char1.position[0] * 45)
-        guardian_position = guardian_position.move(char2.position[1] * 45, char2.position[0] * 45)
-        self.area.blit(macgyver, macgyver_position)
-        self.area.blit(guardian, guardian_position)
+        # display of characters position (to be refactored)
+        characters = [char1, char2]       
+        self.char_position(characters)
 
         # draw counter and display collected items
         pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((0, 675), (675, 25)))
@@ -132,7 +132,7 @@ class Maze:
             self.area.blit(font.render("Mac Gyver looses", True, (0, 0, 26)), (265, 260))
             pygame.display.update()
             pygame.time.wait(5000)
-            return 0
+            return False
         elif val == (30, 30):
              # # draw box to click and start game
             pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((250, 250), (200, 40)))
@@ -140,9 +140,9 @@ class Maze:
             self.area.blit(font.render("Mac Gyver won !", True, (0, 0, 26)), (265, 260))
             pygame.display.update()
             pygame.time.wait(5000)
-            return 0
+            return False
         else:
-            return 1
+            return True
             
 
     
