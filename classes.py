@@ -189,7 +189,7 @@ class Character:
                 for j in self.maze_level.items_pos:                
                     if j[0][0] == sorted_letter:
                         son = pygame.mixer.Sound("sons/item_pick.wav")
-                        son.set_volume(0.5)
+                        son.set_volume(0.2)
                         son.play()                   
                         self.maze_level.items_pos.remove(j)
                         self.bag_content += 1
