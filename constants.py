@@ -12,7 +12,6 @@ start = {
     "background": "images/fond2.jpg"
 }
 
-
 wall = "images/wall.jpg"
 
-items = ["images/ether.png", "images/seringue.png", "images/tube_plastique.png"]
+items = ["images/ether.jpg", "images/seringue.jpg", "images/tube_plastique.jpg"]

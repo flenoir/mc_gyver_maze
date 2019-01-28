@@ -27,7 +27,6 @@ def gaming():
                 turn = turn_modifier
                 
 
-
 while continuer:
     for event in pygame.event.get(): 
         if event.type == QUIT:

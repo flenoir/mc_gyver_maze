@@ -101,12 +101,12 @@ class Maze:
         # display of items
         for i, v in enumerate(self.items_pos):
             picture = self.items_pos[i][1]
-            i = pygame.image.load(picture).convert()            
+            i = pygame.image.load(picture).convert_alpha()            
             self.area.blit(i, (v[0][2]*45, v[0][1]*45))
 
         # first display of characters position (to be refactored)       
-        macgyver = pygame.image.load(char1.symbol).convert()
-        guardian = pygame.image.load(char2.symbol).convert()
+        macgyver = pygame.image.load(char1.symbol).convert_alpha()
+        guardian = pygame.image.load(char2.symbol).convert_alpha()
 
         macgyver_position = macgyver.get_rect(topleft=(0, 0))
         guardian_position = guardian.get_rect(topleft=(0, 0))
