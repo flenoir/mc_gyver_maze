@@ -127,7 +127,7 @@ class Maze:
         """Check end game."""
         if val == (20, 20):
             # # draw box to click and start game
-            pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((250, 250), (140, 25)))
+            pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((250, 250), (200, 40)))
             font = pygame.font.SysFont('Arial', 20, bold=True)
             self.area.blit(font.render("Mac Gyver looses", True, (0, 0, 26)), (265, 260))
             pygame.display.update()
@@ -196,10 +196,10 @@ class Character:
                 
                 new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
                 
-                if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
+                if new_move == char2.position and self.bag_content < 3:                    
                     # print("mac Gyvers looses")
                     return 20,20
-                elif new_move == (2,14) and self.bag_content == 3:
+                elif new_move == char2.position and self.bag_content == 3:
                     # print("mac Gyvers won")
                     return 30,30
                 
