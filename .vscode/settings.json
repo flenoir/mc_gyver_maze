@@ -1,8 +1,0 @@
-{
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.pep8Enabled": false,
-    "python.pythonPath": "C:\\Users\\Admin\\.virtualenvs\\mc_gyver_maze-eQy5IDol\\Scripts\\python.exe",
-    "python.linting.pydocstyleEnabled": false
-}
