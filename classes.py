@@ -52,7 +52,7 @@ class Maze:
         self.items_pos = []
 
         # initalisation of Maze level area
-        pygame.init()
+        # pygame.init()
         # load area
         self.area = pygame.display.set_mode((self.width, self.height))
         
@@ -189,6 +189,7 @@ class Character:
                 for j in self.maze_level.items_pos:                
                     if j[0][0] == sorted_letter:
                         son = pygame.mixer.Sound("sons/item_pick.wav")
+                        son.set_volume(0.5)
                         son.play()                   
                         self.maze_level.items_pos.remove(j)
                         self.bag_content += 1
