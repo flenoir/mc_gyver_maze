@@ -25,9 +25,9 @@ class Screen:
         self.screen.blit(self.back, (0, 0))
 
         # draw box to click and start game
-        pygame.draw.rect(self.screen, (93, 188, 210), pygame.Rect((50, 140), (140, 25)))
+        pygame.draw.rect(self.screen, (93, 188, 210), pygame.Rect((50, 140), (180, 25)))
         font = pygame.font.SysFont('Arial', 20, bold=True)
-        self.screen.blit(font.render('Start Game', True, (0, 0, 26)), (60, 140))
+        self.screen.blit(font.render("Press 's' to start", True, (0, 0, 26)), (60, 140))
 
         pygame.display.flip()
 
@@ -85,7 +85,7 @@ class Maze:
 
     def show_maze(self, char1, char2):
         """Maze display."""
-        
+
         # update display form screen start resolution
         self.area = pygame.display.set_mode((self.width, self.height))
         # pin background on area
@@ -144,6 +144,8 @@ class Character:
         if event.type == KEYDOWN:
             checked_move = char1.check_move(self.position, event, char2)            
             self.position = checked_move[0], checked_move[1]
+            print("checked move " , checked_move)
+            return checked_move
 
     def check_move(self, pos, event, char2):
         """Check move legality."""
@@ -176,8 +178,15 @@ class Character:
                 
                 if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
                     print("mac Gyvers looses")
+                    # # draw box to click and start game
+                    # pygame.draw.rect(self.maze_level.area, (93, 188, 210), pygame.Rect((50, 140), (140, 25)))
+                    # font = pygame.font.SysFont('Arial', 20, bold=True)
+                    # self.maze_level.area.blit(font.render("Mac Gyver looses", True, (0, 0, 26)), (60, 140))
+                    # pygame.display.flip()
+                    return 20,20
                 elif new_move == (2,14) and self.bag_content == 3:
                     print("mac Gyvers won")
+                    return 30,30
                 
                 return new_move
             else:

@@ -4,7 +4,7 @@ import constants
 import pygame
 from pygame.locals import *
 
-game_screen = Screen(constants.maze2) 
+game_screen = Screen(constants.start) 
 
 jeu = Maze(constants.maze1, constants.wall, constants.items)
 
@@ -22,7 +22,8 @@ def gaming():
                 turn = 0
             else:
                 jeu.show_maze(mc, g)
-                mc.move(event, mc, g)
+                val = mc.move(event, mc, g)
+                print("la valeur de mouvement est : ", val)
 
 
 while continuer:
