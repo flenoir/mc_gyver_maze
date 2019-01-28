@@ -60,9 +60,17 @@ J'ai essayé aussi de voir si je faisais l'affichage dans le constructeur avec ju
 
 Je suis ensuite passé à l'affichage des items et à leur disparition quand Mac Gyver passe dessus. J'ai eu un leger problème d'icone qui se ré-affectaient differement à 'affichage dès que je prenait un objet mais je l'ai corrigé ensuite. 
 
-Je passe donc à l'incrémentation d'un compteur pour collecter les 3 objets et ensuite  ajouter la condition de vitoire ou de défaite en rencontrant le gardien. 
+Je passe donc à l'incrémentation d'un compteur pour collecter les 3 objets et ensuite  ajouter la condition de victoire ou de défaite en rencontrant le gardien. 
 
-je pense ensuite finir le projet en ajoutant un conteur d'objets collectés à l'écrans puis un écran d'accueil du jeu
+je pense ensuite finir le projet en ajoutant un conteur d'objets collectés à l'écran puis un écran d'accueil du jeu. 
+
+J'ai pu assez facilement ajouter un compteur d'objets en bas à droite. 
+
+J'ai pu ensuitee créer un écran de démarrage du jeu qui demande d'appuyer sur la touche "S" pour commencer. J'ai eu 2 difficultés : la gestion des boucles entre l'écran de démarrage du jeu et le jeu puis la taille différente entre la fenêtre de lancement du jeu et le jeu en soi. 
+
+Pour la problème des boucles, j'ai discuté sur le forum Discord et j'ai pu avoir des indications que j'aii pu mùmettre en pratique rapidement. Pour le problème de taille, en réflechissant et en allant voir la doc de pygame j'ai pu trouver une solution car je tenais à avoir un taille différente sur ces fenêtres. 
+
+ J'ai ensuite ajouté un son, quand on colecte les items. et je suis en traind e voir comment afficher une boite indiquant la fin du jeu quand on gagne ou on perd. 
 
 
 

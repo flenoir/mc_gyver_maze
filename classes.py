@@ -80,7 +80,7 @@ class Maze:
                     item_tuple = self.array[x][y], item[1]
                     self.items_pos.append(item_tuple)
 
-            # pin background on area
+        # pin background on area
         self.area.blit(self.back, (0, 0))
 
     def show_maze(self, char1, char2):
@@ -123,6 +123,28 @@ class Maze:
         
         pygame.display.flip()
 
+    def end_game(self, val):
+        """Check end game."""
+        if val == (20, 20):
+            # # draw box to click and start game
+            pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((250, 250), (140, 25)))
+            font = pygame.font.SysFont('Arial', 20, bold=True)
+            self.area.blit(font.render("Mac Gyver looses", True, (0, 0, 26)), (265, 260))
+            pygame.display.update()
+            pygame.time.wait(5000)
+            return 0
+        elif val == (30, 30):
+             # # draw box to click and start game
+            pygame.draw.rect(self.area, (93, 188, 210), pygame.Rect((250, 250), (200, 40)))
+            font = pygame.font.SysFont('Arial', 20, bold=True)
+            self.area.blit(font.render("Mac Gyver won !", True, (0, 0, 26)), (265, 260))
+            pygame.display.update()
+            pygame.time.wait(5000)
+            return 0
+        else:
+            return 1
+            
+
     
 class Character:
     """Creation and movment of Character."""
@@ -143,8 +165,7 @@ class Character:
         """Character movment."""
         if event.type == KEYDOWN:
             checked_move = char1.check_move(self.position, event, char2)            
-            self.position = checked_move[0], checked_move[1]
-            print("checked move " , checked_move)
+            self.position = checked_move[0], checked_move[1]            
             return checked_move
 
     def check_move(self, pos, event, char2):
@@ -157,8 +178,6 @@ class Character:
             276: (-1, 0),
             115: (0, 0)  # to avoid stop on s key press
         }
-
-        print("position = ", pos)
 
         if event.key in keystroke:          
             x = keystroke[event.key][0]
@@ -177,15 +196,10 @@ class Character:
                 new_move = (self.maze_level.array[pos[0]+y][pos[1]+x][1],  self.maze_level.array[pos[0]+y][pos[1]+x][2])
                 
                 if new_move == (2,14) and self.bag_content < 3:  # stangely if i put char2.position, the condition is not working
-                    print("mac Gyvers looses")
-                    # # draw box to click and start game
-                    # pygame.draw.rect(self.maze_level.area, (93, 188, 210), pygame.Rect((50, 140), (140, 25)))
-                    # font = pygame.font.SysFont('Arial', 20, bold=True)
-                    # self.maze_level.area.blit(font.render("Mac Gyver looses", True, (0, 0, 26)), (60, 140))
-                    # pygame.display.flip()
+                    # print("mac Gyvers looses")
                     return 20,20
                 elif new_move == (2,14) and self.bag_content == 3:
-                    print("mac Gyvers won")
+                    # print("mac Gyvers won")
                     return 30,30
                 
                 return new_move

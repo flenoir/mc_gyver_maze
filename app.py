@@ -23,7 +23,9 @@ def gaming():
             else:
                 jeu.show_maze(mc, g)
                 val = mc.move(event, mc, g)
-                print("la valeur de mouvement est : ", val)
+                turn_modifier = jeu.end_game(val)
+                turn = turn_modifier
+                
 
 
 while continuer:
